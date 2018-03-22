@@ -11,44 +11,51 @@ fun main(args: Array<String>) {
             ::countTriples.javaMethod?.kotlinFunction,
             ::findUnique.javaMethod?.kotlinFunction
     )
-    val funcName = readLine()!!
-    for (func in functions) {
-        if (func?.name == funcName) {
-            var params: Map<KParameter, Any?> = mapOf()
-            for (type in func.parameters) {
-                when {
-                    type.type.toString() == "kotlin.collections.List<kotlin.Int>" -> {
-                        try {
-                            val len = readLine()!!.toInt()
-                            val list = readLine()!!.split(' ').map { it.toInt() }
-                            if (list.size != len) {
-                                print("Incorrect list")
-                                return
-                            }
-                            params = params.plus(Pair(type, list))
-                        } catch (e: Exception) {
-                            println(e.message)
-                            return
-                        }
-                    }
-                    type.type.toString() == "kotlin.Int" -> {
-                        try {
-                            val int = readLine()!!.toInt()
-                            params = params.plus(Pair(type, int))
-                        } catch (e: Exception) {
-                            println(e.message)
-                            return
-                        }
-                    }
-                    else -> {
-                        println(type.name)
-                        return
-                    }
+    val funcName = readLine()
+    if (funcName == null || !functions.any{it?.name == funcName}) {
+        println("No such function")
+        return
+    }
+    val currentFunction = functions.find { it?.name == funcName }
+    var params: Map<KParameter, Any?> = mapOf()
+    currentFunction?.parameters?.forEach{
+        when {
+            it.type.toString() == "kotlin.collections.List<kotlin.Int>" -> {
+                val len = getInt() ?: return
+                val list = getListOfInt() ?: return
+                if (list.size != len) {
+                    println("Incorrect size of list")
+                    return
                 }
+                params = params.plus(Pair(it, list))
             }
-            println(func.callBy(params))
-            return
+            it.type.toString() == "kotlin.Int" -> {
+                val int = getInt() ?: return
+                params = params.plus(Pair(it, int))
+            }
+            else -> {
+                println("I can't do anything with ${it.name}")
+                return
+            }
         }
     }
-    println("No such function")
+    println(currentFunction?.callBy(params))
+}
+
+fun getInt(): Int? {
+    return try {
+        readLine()!!.toInt()
+    } catch (e: Exception) {
+        println(e.message)
+        null
+    }
+}
+
+fun getListOfInt(): List<Int>? {
+    return try {
+        readLine()!!.split(' ').map{it.toInt()}
+    } catch (e: Exception) {
+        println(e.message)
+        null
+    }
 }
