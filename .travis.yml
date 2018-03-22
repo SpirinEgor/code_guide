@@ -1,0 +1,14 @@
+language: java
+
+sudo: false
+
+notifications:
+  email: false
+
+addons:
+  apt:
+    packages:
+      - zip
+
+script:
+  - echo "OK"
