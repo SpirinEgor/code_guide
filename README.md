@@ -1,5 +1,7 @@
 # code_guide
 
+[![Build Status](https://travis-ci.org/Voudy/code_guide.svg?branch=master)](https://travis-ci.org/Voudy/code_guide)
+
 ![logo](./logo_wallpapaer.png)
 Факультатив для студентов начальных курсов – CODE_GUIDE.
 
