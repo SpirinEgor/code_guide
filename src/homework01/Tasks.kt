@@ -9,3 +9,5 @@ fun getSumOfPrime(k: Int): Long = 0
 fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int = 0
 
 fun findUnique(array: List<Int>): Int = 0
+
+fun ternarySearch(array: List<Int>): Int = 0

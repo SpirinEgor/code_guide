@@ -9,7 +9,8 @@ fun main(args: Array<String>) {
             ::binarySearch.javaMethod?.kotlinFunction,
             ::getSumOfPrime.javaMethod?.kotlinFunction,
             ::countTriples.javaMethod?.kotlinFunction,
-            ::findUnique.javaMethod?.kotlinFunction
+            ::findUnique.javaMethod?.kotlinFunction,
+            ::ternarySearch.javaMethod?.kotlinFunction
     )
     val funcName = readLine()
     if (funcName == null || !functions.any{it?.name == funcName}) {
