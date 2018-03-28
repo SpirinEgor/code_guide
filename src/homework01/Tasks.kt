@@ -10,7 +10,7 @@ const val StartLinear = 5
  *        positive value if first argument is greater
  *        and 0 if they are equal
  *
- * @returns index of first occurrence of element
+ * @see binarySearch
  */
 private tailrec fun binarySearchRecursion(array: List<Int>, element: Int, start: Int, end: Int, compare: (Int, Int) -> Int): Int {
     assert(start < end)
@@ -28,9 +28,9 @@ private tailrec fun binarySearchRecursion(array: List<Int>, element: Int, start:
     val center = start + (end - start).shr(1)
 
     return if (compare(element, array[center]) <= 0) {
-        binarySearchRecursion(array, element, start, center, compare)
+        binarySearchRecursion(array, element, start, center + 1, compare)
     } else {
-        binarySearchRecursion(array, element, center, end, compare)
+        binarySearchRecursion(array, element, center + 1, end, compare)
     }
 }
 
