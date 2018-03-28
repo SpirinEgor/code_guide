@@ -104,16 +104,8 @@ fun findUnique(array: List<Int>): Int =
  */
 private fun getState(array: List<Int>, index: Int): Int =
         when (index) {
-            0 -> when {
-                array[0] < array[1] -> 1
-                array[0] > array[1] -> -1
-                else -> 0
-            }
-            array.size - 1 -> when {
-                array[index - 1] < array[index] -> 1
-                array[index - 1] > array[index] -> -1
-                else -> 0
-            }
+            0 -> if (array[0] < array[1]) 1 else -1
+            array.size - 1 -> if (array[index - 1] < array[index]) 1 else -1
             else -> when {
                 array[index - 1] < array[index] && array[index] < array[index + 1] -> 1
                 array[index - 1] > array[index] && array[index] > array[index + 1] -> -1
