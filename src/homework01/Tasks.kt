@@ -1,13 +1,18 @@
 package homework01
 
-fun binarySearch(array: List<Int>, f: Int): Int? {
+fun binarySearch(array: List<Int>, f: Int): Int {
 
     var i = 0
     val map = array.associate { it to i++ }.toSortedMap()
-    return map[map.keys.toList()[binarySearchInSortedArray(array.sortedBy { it }, f)!!]]
+
+    val position = positionInSortedArray(array.sortedBy { it }, f)
+    if (position < 0)
+        return position
+
+    return map[map.keys.toList()[position]]!!
 }
 
-fun binarySearchInSortedArray(sortedArray: List<Int>, f: Int): Int? {
+fun positionInSortedArray(sortedArray: List<Int>, f: Int): Int {
     var l = 0
     var r = sortedArray.size - 1
     var mid = l + (r - l) / 2
@@ -24,10 +29,10 @@ fun binarySearchInSortedArray(sortedArray: List<Int>, f: Int): Int? {
 }
 
 fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
-    val binLeft = binarySearchInSortedArray(array.sortedBy { it }, l)
-    val binRight = binarySearchInSortedArray(array.sortedBy { it }, r)
-    val left = if (binLeft!! < 0) -binLeft else binLeft
-    val right = if (binRight!! < 0) -binRight else binRight
+    val binLeft = positionInSortedArray(array.sortedBy { it }, l)
+    val binRight = positionInSortedArray(array.sortedBy { it }, r)
+    val left = if (binLeft < 0) -binLeft else binLeft
+    val right = if (binRight < 0) -binRight else binRight
 
     return right - left + 1
 }
