@@ -48,9 +48,9 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
     return right - left + 1
 }
 
-fun getSumOfPrime(k: Int) = getSieve(k, limit = 100_000).sum()
+fun getSumOfPrime(k: Int) = getSieve(k).sum()
 
-fun getSieve(k: Int, limit: Int): List<Int> {
+fun getSieve(k: Int, limit: Int = 100_000): List<Int> {
     val size = min(k, limit)
 
     val primes: MutableCollection<Int> = mutableListOf()
