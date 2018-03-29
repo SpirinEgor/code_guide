@@ -1,6 +1,8 @@
 package homework01
 
 const val StartLinear = 5
+const val MAX_N = 1_000_000
+const val MAX_ITER = 1000
 
 /**
  * Performs search in [start; end)
