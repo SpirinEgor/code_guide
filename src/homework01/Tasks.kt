@@ -1,50 +1,59 @@
 package homework01
 
-fun binarySearch(array: List<Int>, f: Int): Int {
+import java.lang.Math.min
 
+
+/**
+ * DEPRECATED
+ *
+ * Binary search in unsorted array
+ * Return the index of the found element in the original array
+ * If element hasn't found, return -position
+ */
+
+fun binarySearchInUnsortedArray(array: List<Int>, f: Int): Int {
     var i = 0
     val map = array.associate { it to i++ }.toSortedMap()
 
-    val position = positionInSortedArray(array.sortedBy { it }, f)
+    val position = binarySearch(array.sortedBy { it }, f)
     if (position < 0)
         return position
 
     return map[map.keys.toList()[position]]!!
 }
 
-fun positionInSortedArray(sortedArray: List<Int>, f: Int): Int {
+fun binarySearch(array: List<Int>, f: Int): Int {
     var l = 0
-    var r = sortedArray.size - 1
+    var r = array.size - 1
     var mid = l + (r - l) / 2
 
     while (l < r) {
-        when (f.compareTo(sortedArray[mid])) {
+        when (f.compareTo(array[mid])) {
             0 -> return mid
             -1 -> r = mid - 1
             1 -> l = mid + 1
         }
         mid = l + (r - l) / 2
     }
-    return if (sortedArray[mid] == f) mid else -mid
+    return if (array[mid] == f) mid else -mid
 }
 
 fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
-    val binLeft = positionInSortedArray(array.sortedBy { it }, l)
-    val binRight = positionInSortedArray(array.sortedBy { it }, r)
+    val binLeft = binarySearch(array, l)
+    val binRight = binarySearch(array, r)
     val left = if (binLeft < 0) -binLeft else binLeft
     val right = if (binRight < 0) -binRight else binRight
 
     return right - left + 1
 }
 
-fun getSumOfPrime(k: Int) = getSieve(k).sum()
+fun getSumOfPrime(k: Int) = getSieve(k, limit = 100_000).sum()
 
-fun getSieve(k: Int): List<Int> {
-    val LIMIT = 100_000
-    val size = if (k > LIMIT) LIMIT else k
+fun getSieve(k: Int, limit: Int): List<Int> {
+    val size = min(k, limit)
 
     val primes: MutableCollection<Int> = mutableListOf()
-    val checked = BooleanArray(size)
+    val checked = Array(size, {false} )
 
     for (i in 2 until size) {
         if (!checked[i]) {
