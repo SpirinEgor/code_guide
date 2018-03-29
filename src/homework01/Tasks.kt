@@ -22,6 +22,7 @@ fun binarySearchInUnsortedArray(array: List<Int>, f: Int): Int {
     return map[map.keys.toList()[position]]!!
 }
 
+
 fun binarySearch(array: List<Int>, f: Int): Int {
     var l = 0
     var r = array.size - 1
@@ -53,19 +54,18 @@ fun getSieve(k: Int, limit: Int): List<Int> {
     val size = min(k, limit)
 
     val primes: MutableCollection<Int> = mutableListOf()
-    val checked = Array(size, {false} )
+    val checked = Array(size, { false })
 
     for (i in 2 until size) {
         if (!checked[i]) {
             primes.add(i)
         }
 
-        var j = i * i
-        while (j < size) {
+        //var j = i * i
+        for (j in i * i until size step i) {
             if (!checked[j]) {
                 checked[j] = true
             }
-            j += i
         }
     }
     return primes.toList()
