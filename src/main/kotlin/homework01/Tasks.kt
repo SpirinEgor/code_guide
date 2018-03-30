@@ -1,6 +1,21 @@
 package homework01
 
-const val StartLinear = 5
+const val START_LINEAR = 5
+
+/**
+ * @see binarySearchRecursion
+ */
+fun linearSearch(array: List<Int>, element: Int, start: Int, end: Int, compare: (Int, Int) -> Int): Int {
+    for (i in start until end) {
+        if (compare(array[i], element) == 0) {
+            return i
+        }
+        if (compare(array[i], element) > 0) {
+            return i.inv()
+        }
+    }
+    return end.inv()
+}
 
 /**
  * Performs search in [start; end)
@@ -17,12 +32,8 @@ private tailrec fun binarySearchRecursion(array: List<Int>, element: Int, start:
     assert(start >= 0)
     assert(end <= array.size)
 
-    if (start == end - 1) {
-        return when {
-            compare(array[start], element) == 0 -> return start
-            compare(array[start], element) > 0 -> return start.inv()
-            else -> end.inv()
-        }
+    if (end - start < START_LINEAR) {
+        return linearSearch(array, element, start, end, compare)
     }
 
     val center = start + (end - start).shr(1)
@@ -43,9 +54,10 @@ private tailrec fun binarySearchRecursion(array: List<Int>, element: Int, start:
  *          (might therefore return array.size.inv())
  */
 fun binarySearch(array: List<Int>, f: Int): Int =
-        binarySearchRecursion(array, f, 0, array.size, { first: Int, second: Int -> first - second })
+        binarySearchRecursion(array, f, 0, array.size, { first: Int, second: Int -> first.compareTo(second) })
 
 fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
+    assert(l <= r)
     val sorted = array.sorted()
     // [start; end)
     val start = binarySearch(sorted, l)
@@ -113,7 +125,7 @@ private fun getState(array: List<Int>, index: Int): Int =
             }
         }
 
-private fun linearSearchMax(array: List<Int>, start: Int, end: Int): Int {
+fun linearSearchMax(array: List<Int>, start: Int, end: Int): Int {
     var indexOfMax = start
     for (i in start + 1..end) {
         if (array[i] > array[indexOfMax]) {
@@ -127,7 +139,7 @@ private fun linearSearchMax(array: List<Int>, start: Int, end: Int): Int {
 }
 
 private tailrec fun ternarySearchRecursion(array: List<Int>, start: Int, end: Int): Int {
-    if (end - start < StartLinear) {
+    if (end - start < START_LINEAR) {
         linearSearchMax(array, start, end)
     }
 
