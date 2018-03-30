@@ -66,9 +66,34 @@ class TasksKtTest {
         assertEquals(result, dumbResult)
     }
 
+    private fun isPrime(number: Long, previousPrimes: List<Long>): Boolean =
+            previousPrimes.all { number % it != 0L }
+
+    private fun dumbGetSumOfPrime(k: Int): Long {
+
+        val primes = ArrayList<Long>()
+
+        var currentNumber = 2L
+
+        while (primes.count() < k) {
+            if (isPrime(currentNumber, primes)) {
+                primes.add(currentNumber)
+            }
+            currentNumber++
+        }
+
+        // for k <= 0 primes will be empty and sum() will return 0
+        return primes.sum()
+    }
+
     @Test
     fun testGetSumOfPrime() {
-        TODO()
+        val k = 12
+
+        val result = getSumOfPrime(k)
+        val dumbResult = dumbGetSumOfPrime(k)
+
+        assertEquals(result, dumbResult)
     }
 
     private fun dumbCountTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {
