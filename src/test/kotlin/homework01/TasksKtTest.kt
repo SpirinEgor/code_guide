@@ -88,12 +88,12 @@ class TasksKtTest {
 
     @Test
     fun testGetSumOfPrime() {
-        val k = 12
+        val k = 12345
 
         val result = getSumOfPrime(k)
-        // val dumbResult = dumbGetSumOfPrime(k)
+        val dumbResult = dumbGetSumOfPrime(k)
 
-        // assertEquals(result, dumbResult)
+        assertEquals(result, dumbResult)
     }
 
     private fun dumbCountTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {

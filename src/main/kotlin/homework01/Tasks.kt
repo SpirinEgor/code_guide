@@ -68,46 +68,25 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
     return (if (end >= 0) end else end.inv()) - if (start >= 0) start else start.inv()
 }
 
-private fun isPrime(number: Long, previousPrimes: List<Long>): Boolean =
-        previousPrimes.all { number % it != 0L }
-
-private fun dumbGetSumOfPrime(k: Int): Long {
-
-    val primes = ArrayList<Long>()
-
-    var currentNumber = 2L
-
-    while (primes.count() < k) {
-        if (isPrime(currentNumber, primes)) {
-            primes.add(currentNumber)
-        }
-        currentNumber++
-    }
-
-    // for k <= 0 primes will be empty and sum() will return 0
-    return primes.sum()
-}
-
 fun getSumOfPrime(k: Int): Long {
-    /*val used = BooleanArray(PRIME_LIMIT)
+    val used = BooleanArray(PRIME_LIMIT)
     var sum = 0L
     var primesFound = 0
 
-    for (i in 2 until PRIME_LIMIT) {
-        if (!used[i]) {
+    for (i in 2L until PRIME_LIMIT) {
+        if (!used[i.toInt()]) {
             sum += i
             primesFound++
             if (primesFound == k) {
                 return sum
             }
-
+            println("working for $i")
             for (j in i * i until PRIME_LIMIT step i) {
-                used[j] = true
+                used[j.toInt()] = true
             }
         }
     }
-    return -1*/
-    return dumbGetSumOfPrime(k)
+    return -1
 }
 
 fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {
