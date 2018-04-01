@@ -109,22 +109,6 @@ fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {
 fun findUnique(array: List<Int>): Int =
         array.fold(0, { a: Int, b: Int -> a xor b })
 
-/**
- * @returns 1 if values are ascending
- *          -1 if values are descending
- *          0 if index is a stationary point
- */
-private fun getState(array: List<Int>, index: Int): Int =
-        when (index) {
-            0 -> if (array[0] < array[1]) 1 else -1
-            array.size - 1 -> if (array[index - 1] < array[index]) 1 else -1
-            else -> when {
-                array[index - 1] < array[index] && array[index] < array[index + 1] -> 1
-                array[index - 1] > array[index] && array[index] > array[index + 1] -> -1
-                else -> 0
-            }
-        }
-
 fun linearSearchMax(array: List<Int>, start: Int, end: Int): Int {
     var indexOfMax = start
     for (i in start + 1..end) {
@@ -138,22 +122,21 @@ fun linearSearchMax(array: List<Int>, start: Int, end: Int): Int {
     return indexOfMax
 }
 
+/**
+ * Performs search in [start; end]
+ */
 private tailrec fun ternarySearchRecursion(array: List<Int>, start: Int, end: Int): Int {
     if (end - start < START_LINEAR) {
-        linearSearchMax(array, start, end)
+        return linearSearchMax(array, start, end)
     }
 
     val m1 = start + (end - start) / 3
     val m2 = start + 2 * (end - start) / 3
 
-    return when (getState(array, m1)) {
-        1 -> when (getState(array, m2)) {
-            1 -> ternarySearchRecursion(array, m2 + 1, end)
-            -1 -> ternarySearchRecursion(array, m1 + 1, m2 - 1)
-            else -> m2
-        }
-        -1 -> ternarySearchRecursion(array, start, m1 - 1)
-        else -> m1
+    return when {
+        array[m1] > array[m2] -> ternarySearchRecursion(array, start, m2)
+        array[m1] < array[m2] -> ternarySearchRecursion(array, m1, end)
+        else -> ternarySearchRecursion(array, m1, m2)
     }
 }
 

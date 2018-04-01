@@ -125,7 +125,6 @@ class TasksKtTest {
         throw Exception("Array is incorrect")
     }
 
-
     @Test
     fun testFindUnique() {
         val random = Random(SEED)
@@ -142,8 +141,20 @@ class TasksKtTest {
     @Test
     fun testTernarySearch() {
         val random = Random(SEED)
-        val ascending = (1..ARRAY_SIZE / 2).map { random.nextInt(BOUND) }.distinct().sorted()
-        val descending = (1..ARRAY_SIZE / 2).filter { it < ascending[ascending.size - 1] }.distinct().sorted().reversed()
+
+        // Actual numbers might be slightly smaller due to call of .distinct()
+        val numberOfAscending = random.nextInt(ARRAY_SIZE)
+        val numberOfDescending = ARRAY_SIZE - numberOfAscending
+        val ascending = (1..numberOfAscending)
+                .map { random.nextInt(BOUND) }
+                .distinct()
+                .sorted()
+        val descending = (1..numberOfDescending)
+                .map { random.nextInt(BOUND) }
+                .filter { it < ascending[ascending.size - 1] }
+                .distinct()
+                .sorted()
+                .reversed()
         val array = ascending + descending
 
         val result = ternarySearch(array)
