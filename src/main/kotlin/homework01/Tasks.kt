@@ -1,6 +1,7 @@
 package homework01
 
 const val START_LINEAR = 5
+const val PRIME_LIMIT = 1_000_000
 
 /**
  * @see binarySearchRecursion
@@ -66,12 +67,11 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
 }
 
 fun getSumOfPrime(k: Int): Long {
-    val limit = 100000
-    val used = BooleanArray(limit)
+    val used = BooleanArray(PRIME_LIMIT)
     var sum = 0L
     var primesFound = 0
 
-    for (i in 2 until limit) {
+    for (i in 2 until PRIME_LIMIT) {
         if (!used[i]) {
             sum += i
             primesFound++
@@ -79,7 +79,7 @@ fun getSumOfPrime(k: Int): Long {
                 return sum
             }
 
-            for (j in i * i until limit step i) {
+            for (j in i * i until PRIME_LIMIT step i) {
                 used[j] = true
             }
         }
