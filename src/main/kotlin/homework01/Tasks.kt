@@ -86,7 +86,7 @@ fun getSumOfPrime(k: Int): Long {
             }
         }
     }
-    return -1
+    throw Exception("Sorry, too big numbers!")
 }
 
 fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {
