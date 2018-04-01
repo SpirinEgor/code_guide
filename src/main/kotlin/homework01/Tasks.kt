@@ -3,7 +3,7 @@ package homework01
 import java.util.ArrayList
 
 const val START_LINEAR = 5
-const val PRIME_LIMIT = 10_000_000
+const val PRIME_LIMIT = 100_000_000
 
 /**
  * @see binarySearchRecursion
@@ -80,7 +80,7 @@ fun getSumOfPrime(k: Int): Long {
             if (primesFound == k) {
                 return sum
             }
-            println("working for $i")
+            // println("working for $i")
             for (j in i * i until PRIME_LIMIT step i) {
                 used[j.toInt()] = true
             }
