@@ -67,7 +67,7 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
 }
 
 fun getSumOfPrime(k: Int): Long {
-    val used = BooleanArray(PRIME_LIMIT)
+    /*val used = BooleanArray(PRIME_LIMIT)
     var sum = 0L
     var primesFound = 0
 
@@ -84,7 +84,8 @@ fun getSumOfPrime(k: Int): Long {
             }
         }
     }
-    return -1
+    return -1*/
+    return 0
 }
 
 fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {
