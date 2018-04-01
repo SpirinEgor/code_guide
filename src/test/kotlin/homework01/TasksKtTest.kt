@@ -9,7 +9,7 @@ import java.lang.Math.abs
 import java.util.*
 
 const val SEED = 62352L
-const val ARRAY_SIZE = 100
+const val ARRAY_SIZE = 10000
 const val BOUND = 1000
 
 class TasksKtTest {
@@ -118,7 +118,7 @@ class TasksKtTest {
         assertEquals(result, dumbResult)
     }
 
-    // @Test
+    @Test
     fun testTernarySearch() {
         val random = Random(SEED)
 
