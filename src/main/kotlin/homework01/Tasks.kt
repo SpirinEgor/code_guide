@@ -68,6 +68,25 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
     return (if (end >= 0) end else end.inv()) - if (start >= 0) start else start.inv()
 }
 
+private fun isPrime(number: Long, previousPrimes: List<Long>): Boolean =
+        previousPrimes.all { number % it != 0L }
+
+fun dumbGetSumOfPrime(k: Int): Long {
+    val primes = ArrayList<Long>()
+
+    var currentNumber = 2L
+
+    while (primes.count() < k) {
+        if (isPrime(currentNumber, primes)) {
+            primes.add(currentNumber)
+        }
+        currentNumber++
+    }
+
+    // for k <= 0 primes will be empty and sum() will return 0
+    return primes.sum()
+}
+
 fun getSumOfPrime(k: Int): Long {
     val used = BooleanArray(PRIME_LIMIT)
     var sum = 0L
@@ -143,4 +162,35 @@ private tailrec fun ternarySearchRecursion(array: List<Int>, start: Int, end: In
 }
 
 fun ternarySearch(array: List<Int>): Int =
-        ternarySearchRecursion(array, 0, array.size - 1)
+        // ternarySearchRecursion(array, 0, array.size - 1)
+        strangeTernarySearch(array, 0, array.size - 1)
+
+fun strangeTernarySearch(array: List<Int>, l: Int, r: Int): Int {
+    var left = l
+    var right = r
+    while (left != right) {
+        val m1 = left + (right - left) / 3
+        val y1 = array[m1]
+        val m2 = right - (right - left) / 3
+        val y2 = array[m2]
+        when {
+            y1 == y2 -> {
+                left = m1
+                right = m2
+            }
+            y1 < y2 -> right = m1
+            else -> left = m2
+        }
+    }
+    var answer = left
+    var mx = array[left]
+    for (i in left + 1..right) {
+        if (array[i] < mx) {
+            return answer
+        } else {
+            mx = array[i]
+            answer = i
+        }
+    }
+    return answer
+}
