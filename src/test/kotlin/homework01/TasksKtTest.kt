@@ -88,7 +88,7 @@ class TasksKtTest {
 
     @Test
     fun testGetSumOfPrime() {
-        val k = 12345
+        val k = 12
 
         val result = getSumOfPrime(k)
         val dumbResult = dumbGetSumOfPrime(k)

@@ -3,7 +3,7 @@ package homework01
 import java.util.ArrayList
 
 const val START_LINEAR = 5
-const val PRIME_LIMIT = 1_000_000
+const val PRIME_LIMIT = 10_000_000
 
 /**
  * @see binarySearchRecursion
