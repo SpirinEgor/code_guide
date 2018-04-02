@@ -9,7 +9,7 @@ import java.lang.Math.abs
 import java.util.*
 
 const val SEED = 62352L
-const val ARRAY_SIZE = 10000
+const val ARRAY_SIZE = 1000
 const val BOUND = 1000
 
 class TasksKtTest {

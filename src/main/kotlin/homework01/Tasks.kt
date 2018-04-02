@@ -3,7 +3,7 @@ package homework01
 import java.util.ArrayList
 
 const val START_LINEAR = 5
-const val PRIME_LIMIT = 1_000_000_000
+const val PRIME_LIMIT = 1_000_000
 
 /**
  * @see binarySearchRecursion
@@ -137,10 +137,10 @@ fun linearSearchMax(array: List<Int>, start: Int, end: Int): Int {
             indexOfMax = i
         } else {
             // Since we know values will descend further
-            return indexOfMax
+            return array[indexOfMax]
         }
     }
-    return indexOfMax
+    return array[indexOfMax]
 }
 
 /**
