@@ -76,6 +76,17 @@ class TasksKtTest {
         assertEquals(result, dumbResult)
     }
 
+    @Test
+    fun getSumOfZeroPrimes()
+    {
+        val k = 0
+
+        val result = getSumOfPrime(k)
+        val dumbResult = dumbGetSumOfPrime(k)
+
+        assertEquals(result, dumbResult)
+    }
+
     private fun dumbCountTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {
         var sum = 0
         for (i in a) for (j in b) for (k in c) if (i + j + k == x) sum++

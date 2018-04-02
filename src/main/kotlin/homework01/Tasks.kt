@@ -88,6 +88,10 @@ fun dumbGetSumOfPrime(k: Int): Long {
 }
 
 fun getSumOfPrime(k: Int): Long {
+    if (k <= 0) {
+        return 0
+    }
+
     val used = BooleanArray(PRIME_LIMIT)
     var sum = 0L
     var primesFound = 0
