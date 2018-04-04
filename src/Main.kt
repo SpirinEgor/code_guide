@@ -150,3 +150,47 @@ fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {
     }
     return k;
 }
+
+fun findUnique(array: List<Int>): Int {
+    var found: Int = 0
+    for (i in 0..array.size - 1) {
+        found = found.xor(array[i])
+    }
+    return found
+}
+
+fun ternarySearch(array: List<Int>): Int {
+    var left: Int = 0
+    var right: Int = array.size - 1
+    while (right - left > 1) {
+        var point1: Int = left + (right - left) / 3
+        var point2: Int = left + 2 * (right - left) / 3
+
+        if (array[point1] <= array[point1 + 1] && array[point2] <= array[point2 - 1]) {
+            left = point1
+            right = point2
+        } else if (array[point1] >= array[point1 + 1] && array[point2] <= array[point2 - 1]) {
+            right = point1
+        } else if (array[point1] <= array[point1 + 1] && array[point2] >= array[point2 - 1]) {
+            left = point2
+        }
+    }
+    if (left > 0) {
+        if (array[left] > array[left - 1] && array[left] > array[left + 1]) {
+            return array[left]
+        } else if (right != array.size-1) {
+            if (array[right] > array[right - 1] && array[right] > array[right + 1]) {
+                return array[right]
+            }
+        } else {
+            if (array[right] > array[right - 1]) {
+                return array[right]
+            }
+        }
+    } else {
+        if (array[left]>array[left+1]) {
+            return array[left]
+        }
+    }
+    return 0
+}
