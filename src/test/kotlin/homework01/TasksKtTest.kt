@@ -9,7 +9,7 @@ import java.lang.Math.abs
 import java.util.*
 
 const val SEED = 62352L
-const val ARRAY_SIZE = 1000
+const val ARRAY_SIZE = 10
 const val BOUND = 1000
 
 class TasksKtTest {
@@ -20,9 +20,9 @@ class TasksKtTest {
         val array = (1..ARRAY_SIZE).map { random.nextInt(BOUND) }.sorted()
 
         val indices = array.map { binarySearch(array, it) }
-        val dumbIndices = array.map { linearSearch(array, it, 0, array.size, { first: Int, second: Int -> first - second }) }
+        val correctIndices = array.map { array.binarySearch(it) }
 
-        assertArrayEquals(indices.toIntArray(), dumbIndices.toIntArray())
+        assertArrayEquals(correctIndices.toIntArray(), indices.toIntArray())
     }
 
     @Test
@@ -32,13 +32,9 @@ class TasksKtTest {
         val values = (1..ARRAY_SIZE).map { random.nextInt(BOUND) }.filter { !array.contains(it) }
 
         val indices = values.map { binarySearch(array, it) }
-        val dumbIndices = values.map { linearSearch(array, it, 0, array.size, { first: Int, second: Int -> first - second }) }
+        val correctIndices = values.map { array.binarySearch(it) }
 
-        assert(indices.all { it < 0 })
-        assert(dumbIndices.all { it < 0 })
-        assert(indices.all { it >= ARRAY_SIZE.inv() })
-        assert(dumbIndices.all { it >= ARRAY_SIZE.inv() })
-        assertArrayEquals(indices.toIntArray(), dumbIndices.toIntArray())
+        assertArrayEquals(correctIndices.toIntArray(), indices.toIntArray())
     }
 
     private fun dumbHowManyNumbers(array: List<Int>, l: Int, r: Int): Int {
@@ -52,7 +48,7 @@ class TasksKtTest {
     }
 
     @Test
-    fun testHowManyNumbers() {
+    fun testHowManyNumbersOnRandomArray() {
         val random = Random(SEED)
         val array = (1..ARRAY_SIZE).map { random.nextInt(BOUND) }
         val first = random.nextInt(BOUND)
@@ -67,8 +63,8 @@ class TasksKtTest {
     }
 
     @Test
-    fun testGetSumOfPrime() {
-        val k = 12
+    fun testGetSumOfPrimeOnSmallValue() {
+        val k = 6
 
         val result = getSumOfPrime(k)
         val dumbResult = dumbGetSumOfPrime(k)
@@ -77,9 +73,18 @@ class TasksKtTest {
     }
 
     @Test
-    fun getSumOfZeroPrimes()
-    {
+    fun testGetSumOfPrimeOnZeroValue() {
         val k = 0
+
+        val result = getSumOfPrime(k)
+        val dumbResult = dumbGetSumOfPrime(k)
+
+        assertEquals(result, dumbResult)
+    }
+
+    @Test
+    fun testGetSumOfPrimesOnLargeValue() {
+        val k = 37
 
         val result = getSumOfPrime(k)
         val dumbResult = dumbGetSumOfPrime(k)
@@ -89,7 +94,15 @@ class TasksKtTest {
 
     private fun dumbCountTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {
         var sum = 0
-        for (i in a) for (j in b) for (k in c) if (i + j + k == x) sum++
+        for (i in a) {
+            for (j in b) {
+                for (k in c) {
+                    if (i + j + k == x) {
+                        sum++
+                    }
+                }
+            }
+        }
         return sum
     }
 
@@ -130,7 +143,34 @@ class TasksKtTest {
     }
 
     @Test
-    fun testTernarySearch() {
+    fun testTernarySearchOnDescendingArray() {
+        val random = Random(SEED)
+        val ascending = (1..ARRAY_SIZE)
+                .map { random.nextInt(BOUND) }
+                .distinct()
+                .sorted()
+                .reversed()
+
+        val result = ternarySearch(ascending)
+
+        assertEquals(ascending[0], result)
+    }
+
+    @Test
+    fun testTernarySearchOnAscendingArray() {
+        val random = Random(SEED)
+        val ascending = (1..ARRAY_SIZE)
+                .map { random.nextInt(BOUND) }
+                .distinct()
+                .sorted()
+
+        val result = ternarySearch(ascending)
+
+        assertEquals(ascending[ascending.size - 1], result)
+    }
+
+    @Test
+    fun testTernarySearchOnRandomArray() {
         val random = Random(SEED)
 
         // Actual numbers might be slightly smaller due to call of .distinct()
@@ -149,8 +189,8 @@ class TasksKtTest {
         val array = ascending + descending
 
         val result = ternarySearch(array)
-        val dumbResult = linearSearchMax(array, 0, array.size - 1)
+        val correctResult = array.max()
 
-        assertEquals(result, dumbResult)
+        assertEquals(correctResult, result)
     }
 }
