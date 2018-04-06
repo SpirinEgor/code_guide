@@ -14,7 +14,6 @@ import java.lang.Math.min
 fun binarySearchInUnsortedArray(array: List<Int>, f: Int): Int {
     var i = 0
     val map = array.associate { it to i++ }.toSortedMap()
-
     val position = binarySearch(array.sortedBy { it }, f)
     if (position < 0)
         return position
@@ -28,7 +27,7 @@ fun binarySearch(array: List<Int>, f: Int): Int {
     var r = array.size - 1
     var mid = l + (r - l) / 2
 
-    while (l < r) {
+    while (l <= r) {
         when (f.compareTo(array[mid])) {
             0 -> return mid
             -1 -> r = mid - 1
@@ -36,14 +35,16 @@ fun binarySearch(array: List<Int>, f: Int): Int {
         }
         mid = l + (r - l) / 2
     }
-    return if (array[mid] == f) mid else -mid
+
+    if (mid >= array.size) return -mid - 1
+    return if (array[mid] == f) mid else -mid - 1
 }
 
 fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
     val binLeft = binarySearch(array, l)
     val binRight = binarySearch(array, r)
-    val left = if (binLeft < 0) -binLeft else binLeft
-    val right = if (binRight < 0) -binRight else binRight
+    val left = if (binLeft < 0) -binLeft - 1 else binLeft
+    val right = if (binRight < 0) -binRight - 2 else binRight
 
     return right - left + 1
 }
@@ -61,7 +62,6 @@ fun getSieve(k: Int, limit: Int = 100_000): List<Int> {
             primes.add(i)
         }
 
-        //var j = i * i
         for (j in i * i until size step i) {
             if (!checked[j]) {
                 checked[j] = true
@@ -91,7 +91,7 @@ fun ternarySearch(array: List<Int>): Int {
     var r = array.size - 1
 
     var m1 = l + (r - l) / 3
-    var m2 = l + 2 * (r - l) / 3
+    var m2 = l + 2 * (r - l) / 3 + 1
 
     while (l < r) {
         when (array[m1].compareTo(array[m2])) {
@@ -106,7 +106,7 @@ fun ternarySearch(array: List<Int>): Int {
         }
 
         m1 = l + (r - l) / 3
-        m2 = l + 2 * (r - l) / 3 + 1
+        m2 = l + 2 * (r - l) / 3
     }
     return array[l]
 }
