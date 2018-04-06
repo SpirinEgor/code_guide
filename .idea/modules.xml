@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/code_guide.iml" filepath="$PROJECT_DIR$/.idea/modules/code_guide.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/code_guide_main.iml" filepath="$PROJECT_DIR$/.idea/modules/code_guide_main.iml" group="code_guide" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/code_guide_main.iml" filepath="$PROJECT_DIR$/.idea/modules/code_guide_main.iml" group="code_guide" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/code_guide_test.iml" filepath="$PROJECT_DIR$/.idea/modules/code_guide_test.iml" group="code_guide" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/code_guide_test.iml" filepath="$PROJECT_DIR$/.idea/modules/code_guide_test.iml" group="code_guide" />
     </modules>
   </component>
