@@ -13,13 +13,13 @@ fun main(args: Array<String>) {
             ::ternarySearch.javaMethod?.kotlinFunction
     )
     val funcName = readLine()
-    if (funcName == null || !functions.any{it?.name == funcName}) {
+    if (funcName == null || !functions.any{ it?.name == funcName}) {
         println("No such function")
         return
     }
     val currentFunction = functions.find { it?.name == funcName }
     var params: Map<KParameter, Any?> = mapOf()
-    currentFunction?.parameters?.forEach{
+    currentFunction?.parameters?.forEach {
         when {
             it.type.toString() == "kotlin.collections.List<kotlin.Int>" -> {
                 val len = getInt() ?: return
