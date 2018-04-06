@@ -1,4 +1,5 @@
 import homework01.*
+import homework03.*
 import kotlin.reflect.KParameter
 import kotlin.reflect.jvm.javaMethod
 import kotlin.reflect.jvm.kotlinFunction
@@ -10,7 +11,11 @@ fun main(args: Array<String>) {
             ::getSumOfPrime.javaMethod?.kotlinFunction,
             ::countTriples.javaMethod?.kotlinFunction,
             ::findUnique.javaMethod?.kotlinFunction,
-            ::ternarySearch.javaMethod?.kotlinFunction
+            ::ternarySearch.javaMethod?.kotlinFunction,
+
+            ::minimalDiffDivide.javaMethod?.kotlinFunction,
+            ::minimalScalarProduct.javaMethod?.kotlinFunction,
+            ::backpack.javaMethod?.kotlinFunction
     )
     val funcName = readLine()
     if (funcName == null || !functions.any{ it?.name == funcName}) {
