@@ -124,6 +124,32 @@ class TasksKtTest {
     }
 
     @Test
+    fun testHowManyNumbersOnCustomArrayWithNoPresentValues() {
+        val array = intArrayOf(1, 2, 1, 2, 1, 2)
+
+        val l = 42
+        val r = 221
+
+        val result = howManyNumbers(array.asList(), l, r)
+        val correctResult = 0
+
+        assertEquals(correctResult, result)
+    }
+
+    @Test
+    fun testHowManyNumbersOnCustomArrayWithPresentValues() {
+        val array = intArrayOf(1, 2, 1, 2, 1, 2)
+
+        val l = 2
+        val r = 10
+
+        val result = howManyNumbers(array.asList(), l, r)
+        val correctResult = dumbHowManyNumbers(array.asList(), l, r)
+
+        assertEquals(correctResult, result)
+    }
+
+    @Test
     fun testGetSumOfPrimeOnSmallValue() {
         val k = 6
 
@@ -154,7 +180,7 @@ class TasksKtTest {
     }
 
     @Test
-    fun testCountTriples() {
+    fun testCountTriplesOnRandomArrays() {
         val random = Random(SEED)
         val a = (1..ARRAY_SIZE).map { random.nextInt(BOUND) }
         val b = (1..ARRAY_SIZE).map { random.nextInt(BOUND) }
@@ -168,7 +194,33 @@ class TasksKtTest {
     }
 
     @Test
-    fun testFindUnique() {
+    fun testCountTriplesOnEmptyArrays() {
+        val a = intArrayOf()
+        val b = intArrayOf()
+        val c = intArrayOf()
+        val x = 42
+
+        val result = countTriples(a.asList(), b.asList(), c.asList(), x)
+        val correctResult = 0
+
+        assertEquals(correctResult, result)
+    }
+
+    @Test
+    fun testCountTriplesOnCustomArrays() {
+        val a = intArrayOf(1, 2, 3, 4, 5)
+        val b = intArrayOf(1, 2, 3)
+        val c = intArrayOf(40, 39, 4, 5)
+        val x = 42
+
+        val result = countTriples(a.asList(), b.asList(), c.asList(), x)
+        val correctResult = dumbCountTriples(a.asList(), b.asList(), c.asList(), x)
+
+        assertEquals(correctResult, result)
+    }
+
+    @Test
+    fun testFindUniqueOnRandomArray() {
         val random = Random(SEED)
         val first = (1..ARRAY_SIZE).shuffled(random).subList(0, ARRAY_SIZE - 1)
         val second = (1..ARRAY_SIZE).shuffled(random)
@@ -178,6 +230,16 @@ class TasksKtTest {
         val dumbResult = dumbFindUnique(array)
 
         assertEquals(result, dumbResult)
+    }
+
+    @Test
+    fun testFindUniqueOnCustomArray() {
+        val array = intArrayOf(1, 2, 3, 4, 2, 15, 3, 4, 1)
+
+        val result = findUnique(array.asList())
+        val correctResult = dumbFindUnique(array.asList())
+
+        assertEquals(correctResult, result)
     }
 
     @Test
