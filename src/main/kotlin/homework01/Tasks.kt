@@ -1,7 +1,5 @@
 package homework01
 
-import java.util.ArrayList
-
 const val START_LINEAR = 5
 const val PRIME_LIMIT = 1_000_000
 
@@ -68,25 +66,6 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
     return (if (end >= 0) end else end.inv()) - if (start >= 0) start else start.inv()
 }
 
-private fun isPrime(number: Long, previousPrimes: List<Long>): Boolean =
-        previousPrimes.all { number % it != 0L }
-
-fun dumbGetSumOfPrime(k: Int): Long {
-    val primes = ArrayList<Long>()
-
-    var currentNumber = 2L
-
-    while (primes.count() < k) {
-        if (isPrime(currentNumber, primes)) {
-            primes.add(currentNumber)
-        }
-        currentNumber++
-    }
-
-    // for k <= 0 primes will be empty and sum() will return 0
-    return primes.sum()
-}
-
 fun getSumOfPrime(k: Int): Long {
     if (k <= 0) {
         return 0
@@ -131,8 +110,7 @@ fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {
     return sum
 }
 
-fun findUnique(array: List<Int>): Int =
-        array.fold(0, { a: Int, b: Int -> a xor b })
+fun findUnique(array: List<Int>): Int = array.fold(0, { a: Int, b: Int -> a xor b })
 
 fun linearSearchMax(array: List<Int>, start: Int, end: Int): Int {
     var indexOfMax = start
