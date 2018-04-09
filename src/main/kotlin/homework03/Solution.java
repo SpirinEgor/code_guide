@@ -2,7 +2,7 @@ package homework03;
 
 import java.util.Arrays;
 
-public class Tasks {
+public class Solution {
     public static int backpack(int[] weight, int[] cost, int maxWeight) {
         int[] bp = new int[maxWeight + 1];
         bp[0] = 0;
