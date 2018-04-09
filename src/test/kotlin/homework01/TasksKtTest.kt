@@ -9,31 +9,26 @@ import kotlin.test.assertEquals
 
 class TasksKtTest {
 
-    private val random = Random()
-
-    private fun ClosedRange<Int>.random(): Int = Random().nextInt(endInclusive - start) + start
-
     @Test
-    fun binarySearchInOneElementArray() {
+    fun positionOfSearchingElementInOneElementArray() {
         val listOfOneElement = listOf(5)
-        assertEquals(0, binarySearch(listOfOneElement, 5))
+        val result = 0
+        assertEquals(result, binarySearch(listOfOneElement, 5))
     }
 
     @Test
-    fun binarySearchInTwoElementArray() {
+    fun positionOfSearchingElementInTwoElementArray() {
         val listOfTwoElements = listOf(-1, 1)
 
-        val result1 = listOfTwoElements.binarySearch(-1)
-        val result2 = listOfTwoElements.binarySearch(1)
-        val result3 = listOfTwoElements.binarySearch(2)
+        val result1 = 0
+        val result2 = 1
 
         assertEquals(result1, binarySearch(listOfTwoElements, -1))
         assertEquals(result2, binarySearch(listOfTwoElements, 1))
-        assertEquals(result3, binarySearch(listOfTwoElements, 2))
     }
 
     @Test
-    fun binarySearchIfNotContainingElement() {
+    fun potentialPositionOfSearchingElementIfNotContainingElement() {
         val listOfElements = listOf(1, 5, 6, 9, 11)
         val search = listOf(0, 7, 12)
 
@@ -47,7 +42,7 @@ class TasksKtTest {
     }
 
     @Test
-    fun binarySearchInBigArray() {
+    fun positionOfSearchingElementInBigArray() {
         val listOfManyElements = ArrayList<Int>()
         val values = HashSet<Int>()
         for (i in 0..1_000_000) {
@@ -62,69 +57,72 @@ class TasksKtTest {
         /**
          * Searches the random element
          */
-        assertEquals(listOfManyElements.binarySearch(search), binarySearch(listOfManyElements, search))
+        val result1 = listOfManyElements.binarySearch(search)
+        assertEquals(result1, binarySearch(listOfManyElements, search))
 
         /**
          * Searches the first element
          */
-        assertEquals(listOfManyElements.binarySearch(listOfManyElements[0]),
-                binarySearch(listOfManyElements, listOfManyElements[0]))
+        val result2 = listOfManyElements.binarySearch(listOfManyElements[0])
+        assertEquals(result2, binarySearch(listOfManyElements, listOfManyElements[0]))
 
         /**
          * Searches the last element
          */
-        assertEquals(listOfManyElements.binarySearch(listOfManyElements[listOfManyElements.size - 1]),
-                binarySearch(listOfManyElements, listOfManyElements[listOfManyElements.size - 1]))
+        val result3 = listOfManyElements.binarySearch(listOfManyElements[listOfManyElements.size - 1])
+        assertEquals(result3, binarySearch(listOfManyElements, listOfManyElements[listOfManyElements.size - 1]))
     }
 
     @Test
-    fun howManyNumbersBothContains() {
+    fun countOfNumbersInIntervalIfBothBoundsContainsInArray() {
         val list = (1..100).map { it }
         val leftBound = 1
         val rightBound = 100
 
-        val result = list.filter { it in (leftBound)..(rightBound) }
-        assertEquals(result.size, howManyNumbers(list, leftBound, rightBound))
+        val result = list.filter { it in (leftBound)..(rightBound) }.size
+        assertEquals(result, howManyNumbers(list, leftBound, rightBound))
     }
 
     @Test
-    fun howManyNumbersOneContains() {
+    fun countOfNumbersInIntervalIfOneBoundContainsInArray() {
         val list = (0..10_000).map { 2 * it + 1 }
 
         var i = 1
         while (i <= list[list.size - 1]) {
             val j = i + 3
-            val result = list.filter { it in (i)..(j) }
-            assertEquals(result.size, howManyNumbers(list, i, j))
+            val result = list.filter { it in (i)..(j) }.size
+            assertEquals(result, howManyNumbers(list, i, j))
             i += 2
         }
 
         var j = 1
         while (j <= list[list.size - 1] + 2) {
             i = j - 5
-            val result = list.filter { it in (i)..(j) }
-            assertEquals(result.size, howManyNumbers(list, i, j))
+            val result = list.filter { it in (i)..(j) }.size
+            assertEquals(result, howManyNumbers(list, i, j))
             j += 2
         }
     }
 
     @Test
-    fun howManyNumbersNoneContains() {
+    fun countOfNumbersInIntervalIfNoneOfBoundsContainsInArray() {
         val list = (0..1000).map { 2 * it + 1 }
 
         var i = 750
         var j = 1420
 
         while (i > 0 || j < list[list.size - 1]) {
-            val result = list.filter { it in (i)..(j) }
-            assertEquals(result.size, howManyNumbers(list, i, j))
+
+            val result = list.filter { it in (i)..(j) }.size
+            assertEquals(result, howManyNumbers(list, i, j))
+
             i -= 4
             j += 2
         }
     }
 
     @Test
-    fun getSumOfPrime() {
+    fun countSumOfPrimes() {
         val k = 1000
         var res = 0
         for (i in 2..k) {
@@ -137,29 +135,31 @@ class TasksKtTest {
     }
 
     @Test
-    fun getSieve() {
+    fun countSumOfPrimesOf100_000Elements() {
+        val k = 100_000
+        var res = 0
+        for (i in 2..k) {
+            if (isPrime(i)) {
+                res += i
+            }
+        }
+        val sum = homework01.getSumOfPrime(k)
+        assertEquals(res, sum)
+    }
+
+
+    @Test
+    fun checkIfAnyNumberInSieveIsPrimeAndNothingOtherContains() {
         val sieve = getSieve(1000)
 
         for (i in sieve) {
-            assertTrue(isPrime(i))
+            val result = isPrime(i)
+            assertTrue(result)
         }
-    }
-
-    private fun isPrime(n: Int): Boolean {
-        if (n == 2) return true
-
-        if (n % 2 == 0) return false
-
-        var j = 3
-        while (j * j <= n) {
-            if (n % j == 0) return false
-            j += 2
-        }
-        return true
     }
 
     @Test
-    fun countTriples() {
+    fun compareCountTriplesWithDumbSolution() {
         val a = (1..1000).map { (-500..500).random() }
         val b = (1..1000).map { (-500..500).random() }
         val c = (1..1000).map { (-500..500).random() }
@@ -181,21 +181,21 @@ class TasksKtTest {
     }
 
     @Test
-    fun findUniqueOfOneElement() {
+    fun uniqueElementInOneElementArray() {
         val array = listOf(5)
         val result = 5
         assertEquals(result, findUnique(array))
     }
 
     @Test
-    fun findUniqueOfManyElements() {
+    fun uniqueElementInSomeElementsArray() {
         val array = listOf(2, 5, 4, 7, 5, 4, 7)
         val result = 2
         assertEquals(result, findUnique(array))
     }
 
     @Test
-    fun ternarySearch() {
+    fun findMaxInRandomlyGenerated20SizedArray() {
         val arrayIncreasing = Array(10, { (-100..100).random() }).toList().sortedBy { it }
         val arrayDecreasing = Array(10, { (-100..100).random() }).toList().sortedByDescending { it }
 
@@ -206,7 +206,7 @@ class TasksKtTest {
     }
 
     @Test
-    fun ternarySearchInEqualArray() {
+    fun findMaxElementInArrayOfEqualElements() {
         val array = Array(20, { 20 }).toList()
 
         val result = 20
@@ -214,21 +214,21 @@ class TasksKtTest {
     }
 
     @Test
-    fun ternarySearchInOneElementArray() {
+    fun findMaxElementInOneElementArray() {
         val array = listOf(20)
         val result = 20
         assertEquals(result, ternarySearch(array))
     }
 
     @Test
-    fun ternarySearchInTwoElementArray() {
+    fun findMaxElementInOneTwoArray() {
         val array = listOf(40, 30)
         val result = findMax(array)
         assertEquals(result, ternarySearch(array))
     }
 
     @Test
-    fun ternarySearchInThreeElementArray() {
+    fun findMaxElementInThreeElementArray() {
         var array = listOf(60, 50, 40)
         var result = findMax(array)
         assertEquals(result, ternarySearch(array))
@@ -237,6 +237,10 @@ class TasksKtTest {
         result = findMax(array)
         assertEquals(result, ternarySearch(array))
     }
+
+    /**
+     * Some staff functions
+     */
 
     private fun findMax(array: List<Int>): Int {
         var max = Int.MIN_VALUE
@@ -247,4 +251,22 @@ class TasksKtTest {
         }
         return max
     }
+
+    private fun isPrime(n: Int): Boolean {
+        if (n == 2) return true
+
+        if (n % 2 == 0) return false
+
+        var j = 3
+        while (j * j <= n) {
+            if (n % j == 0) return false
+            j += 2
+        }
+        return true
+    }
+
+    private val random = Random()
+
+    private fun ClosedRange<Int>.random(): Int = Random().nextInt(endInclusive - start) + start
+
 }
