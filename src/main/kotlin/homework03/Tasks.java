@@ -25,24 +25,37 @@ public class Tasks {
                 }
             }
         }
-        return bp[maxWeight];
+
+        int result = 0;
+        for(int i = 0; i <= maxWeight; i++) {
+            if (bp[i] > result) {
+                result = bp[i];
+            }
+        }
+
+        return result;
     }
 
     public static int minimalDiffDivide(List<Integer> array) {
+        Collections.sort(array);
         int[] m = new int[array.size()];
         int sum = 0;
         for(Integer a : array) {
             sum += a;
         }
         int maxSumOfArray = (sum + 1) / 2;
+
         m[0] = array.get(0);
         for(int i = 1; i < array.size(); i++) {
-            int max = array.get(i);
-            for(int j = i - 1; j >= 0; j--) {
-                int currentEl = array.get(i);
+            int max = Integer.MIN_VALUE;
+            int currentEl = array.get(i);
+            for(int j = 0; j <= i - 1; j++) {
                 if (m[j] + currentEl <= maxSumOfArray && m[j] + currentEl > max) {
                     max = currentEl + m[j];
                 }
+            }
+            if (max == Integer.MIN_VALUE) {
+                max = currentEl;
             }
             m[i] = max;
         }
@@ -52,10 +65,11 @@ public class Tasks {
                 max = m[i];
             }
         }
-        return Math.abs(sum - 2 * max);
+        int result = Math.abs(sum - 2 * max);
+        return (sum >= 0) ? result : -result;
     }
 
-    public static int minimalScalarProduct(List<Integer> x, List<Integer> y) {
+    public static long minimalScalarProduct(List<Integer> x, List<Integer> y) {
         Collections.sort(x);
         Collections.sort(y);
         if (x.size() > y.size()) {
@@ -63,12 +77,12 @@ public class Tasks {
             x = y;
             y = tempArray;
         }
-        int result = 0;
+        long result = 0;
         int k = x.size() - 1;
+
         for(int i = 0; i < x.size(); i++, k--) {
-            result += x.get(i) * y.get(k);
+            result += (long) x.get(i) * (long) y.get(k);
         }
         return result;
     }
 }
-
