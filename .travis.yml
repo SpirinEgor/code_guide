@@ -5,5 +5,4 @@ jdk:
 before_script:
 - wget http://acm.math.spbu.ru/voudy/code_guide/Hw01Tests.kt
 - mv Hw01Tests.kt src/test/kotlin/homework01/
-- wget http://acm.math.spbu.ru/voudy/code_guide/Hw03Tests.kt
 - mv Hw03Tests.kt src/test/kotlin/homework03/

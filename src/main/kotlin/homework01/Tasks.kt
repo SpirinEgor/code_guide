@@ -1,8 +1,5 @@
 package homework01
 
-import java.lang.Math.min
-
-
 /**
  * DEPRECATED
  *
@@ -41,8 +38,9 @@ fun binarySearch(array: List<Int>, f: Int): Int {
 }
 
 fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
-    val binLeft = binarySearch(array, l)
-    val binRight = binarySearch(array, r)
+    val arraySorted = array.sortedBy { it }
+    val binLeft = binarySearch(arraySorted, l)
+    val binRight = binarySearch(arraySorted, r)
     val left = if (binLeft < 0) -binLeft - 1 else binLeft
     val right = if (binRight < 0) -binRight - 2 else binRight
 
@@ -52,17 +50,18 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
 fun getSumOfPrime(k: Int) = getSieve(k).sum()
 
 fun getSieve(k: Int, limit: Int = 100_000): List<Int> {
-    val size = min(k, limit)
-
     val primes: MutableCollection<Int> = mutableListOf()
-    val checked = Array(size, { false })
+    val checked = Array(limit, { false })
 
-    for (i in 2L until size) {
+    for (i in 2L until limit) {
         if (!checked[i.toInt()]) {
+            if (primes.size == k) {
+                return primes.toList()
+            }
             primes.add(i.toInt())
         }
 
-        for (j in i * i until size step i) {
+        for (j in i * i until limit step i) {
             if (!checked[j.toInt()]) {
                 checked[j.toInt()] = true
             }
@@ -92,22 +91,32 @@ fun ternarySearch(array: List<Int>): Int {
     var r = array.size - 1
 
     var m1 = l + (r - l) / 3
-    var m2 = l + 2 * (r - l) / 3 + 1
+    var m2 = l + 2 * (r - l) / 3
 
     while (l < r) {
         when (array[m1].compareTo(array[m2])) {
-            0 -> if (m1 == m2)
-                return array[m1]
-            else {
+            0 -> if (m1 == m2) {
+                val max = array[m1]
+                val mr = m1 + 1
+                if (max < array[mr]) {
+                    return array[mr]
+                }
+                val ml = m1 - 1
+                if (max < array[ml]) {
+                    return array[ml]
+                }
+                return max
+            } else {
                 l = m1
                 r = m2
             }
             -1 -> l = m1 + 1
-            1 -> r = m2
+            1 -> r = m2 - 1
         }
 
         m1 = l + (r - l) / 3
         m2 = l + 2 * (r - l) / 3
     }
+
     return array[l]
 }

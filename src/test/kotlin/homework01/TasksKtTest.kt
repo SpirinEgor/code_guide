@@ -123,11 +123,17 @@ class TasksKtTest {
 
     @Test
     fun countSumOfPrimes() {
+        val limit = 100_000
         val k = 1000
+        var count = 0
         var res = 0
-        for (i in 2..k) {
+        for (i in 2..limit) {
             if (isPrime(i)) {
+                if (count == k) {
+                    break
+                }
                 res += i
+                count++
             }
         }
         val sum = homework01.getSumOfPrime(k)
@@ -238,6 +244,22 @@ class TasksKtTest {
         assertEquals(result, ternarySearch(array))
     }
 
+    @Test
+    fun binarySearch() {
+        val testSimple = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        assertEquals(5, binarySearch(testSimple, 6))
+
+        val testSame = listOf(1, 2, 3, 4, 4, 4, 4, 5, 6, 7)
+        val findPos = binarySearch(testSame, 4)
+        assertEquals(4, testSame[findPos])
+
+        val testLeft = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        assertEquals(0, binarySearch(testLeft, 1))
+
+        val testRight = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+        assertEquals(9, binarySearch(testRight, 10))
+    }
+
     /**
      * Some staff functions
      */
@@ -260,7 +282,7 @@ class TasksKtTest {
         var j = 3
         while (j * j <= n) {
             if (n % j == 0) return false
-            j += 2
+            j++
         }
         return true
     }
