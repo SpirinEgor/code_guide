@@ -57,16 +57,17 @@ fun getSieve(k: Int, limit: Int = 100_000): List<Int> {
     val primes: MutableCollection<Int> = mutableListOf()
     val checked = Array(size, { false })
 
-    for (i in 2 until size) {
-        if (!checked[i]) {
-            primes.add(i)
+    for (i in 2L until size) {
+        if (!checked[i.toInt()]) {
+            primes.add(i.toInt())
         }
 
         for (j in i * i until size step i) {
-            if (!checked[j]) {
-                checked[j] = true
+            if (!checked[j.toInt()]) {
+                checked[j.toInt()] = true
             }
         }
+
     }
     return primes.toList()
 }
@@ -102,7 +103,7 @@ fun ternarySearch(array: List<Int>): Int {
                 r = m2
             }
             -1 -> l = m1 + 1
-            1 -> r = m2 - 1
+            1 -> r = m2
         }
 
         m1 = l + (r - l) / 3
