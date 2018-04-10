@@ -47,10 +47,10 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
     return right - left + 1
 }
 
-fun getSumOfPrime(k: Int) = getSieve(k).sum()
+fun getSumOfPrime(k: Int): Long = getSieve(k).sum()
 
-fun getSieve(k: Int, limit: Int = 100_000): List<Int> {
-    val primes: MutableCollection<Int> = mutableListOf()
+fun getSieve(k: Int, limit: Int = 100_0000): List<Long> {
+    val primes: MutableCollection<Long> = mutableListOf()
     val checked = Array(limit, { false })
 
     for (i in 2L until limit) {
@@ -58,7 +58,7 @@ fun getSieve(k: Int, limit: Int = 100_000): List<Int> {
             if (primes.size == k) {
                 return primes.toList()
             }
-            primes.add(i.toInt())
+            primes.add(i)
         }
 
         for (j in i * i until limit step i) {
@@ -98,12 +98,16 @@ fun ternarySearch(array: List<Int>): Int {
             0 -> if (m1 == m2) {
                 val max = array[m1]
                 val mr = m1 + 1
-                if (max < array[mr]) {
-                    return array[mr]
+                if (mr < array.size) {
+                    if (max < array[mr]) {
+                        return array[mr]
+                    }
                 }
                 val ml = m1 - 1
-                if (max < array[ml]) {
-                    return array[ml]
+                if (ml >= 0) {
+                    if (max < array[ml]) {
+                        return array[ml]
+                    }
                 }
                 return max
             } else {

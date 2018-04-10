@@ -126,8 +126,8 @@ class TasksKtTest {
         val limit = 100_000
         val k = 1000
         var count = 0
-        var res = 0
-        for (i in 2..limit) {
+        var res: Long = 0
+        for (i in 2L..limit) {
             if (isPrime(i)) {
                 if (count == k) {
                     break
@@ -142,9 +142,9 @@ class TasksKtTest {
 
     @Test
     fun countSumOfPrimesOf100_000Elements() {
-        val k = 100_000
-        var res = 0
-        for (i in 2..k) {
+        val k = 1_000_000
+        var res = 0L
+        for (i in 2L..k) {
             if (isPrime(i)) {
                 res += i
             }
@@ -244,22 +244,6 @@ class TasksKtTest {
         assertEquals(result, ternarySearch(array))
     }
 
-    @Test
-    fun binarySearch() {
-        val testSimple = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-        assertEquals(5, binarySearch(testSimple, 6))
-
-        val testSame = listOf(1, 2, 3, 4, 4, 4, 4, 5, 6, 7)
-        val findPos = binarySearch(testSame, 4)
-        assertEquals(4, testSame[findPos])
-
-        val testLeft = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-        assertEquals(0, binarySearch(testLeft, 1))
-
-        val testRight = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-        assertEquals(9, binarySearch(testRight, 10))
-    }
-
     /**
      * Some staff functions
      */
@@ -274,14 +258,14 @@ class TasksKtTest {
         return max
     }
 
-    private fun isPrime(n: Int): Boolean {
-        if (n == 2) return true
+    private fun isPrime(n: Long): Boolean {
+        if (n == 2L) return true
 
-        if (n % 2 == 0) return false
+        if (n % 2L == 0L) return false
 
         var j = 3
         while (j * j <= n) {
-            if (n % j == 0) return false
+            if (n % j == 0L) return false
             j++
         }
         return true
