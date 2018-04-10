@@ -1,12 +1,11 @@
 package homework03
 
 import org.junit.Test
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class TasksKtTest {
 
-    @Test
+    /*@Test
     fun minimalDiffDivide() {
     }
 
@@ -16,7 +15,7 @@ class TasksKtTest {
 
     @Test
     fun backpack() {
-    }
+    }*/
 
     @Test
     fun findPairOfIntegersWhichSumEqualsToXIfSumContains() {
