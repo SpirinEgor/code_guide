@@ -5,17 +5,23 @@ import kotlin.test.assertTrue
 
 class TasksKtTest {
 
-    /*@Test
+    @Test
     fun minimalDiffDivide() {
+        // Оставлено до лучших времен
+        assertTrue(true)
     }
 
     @Test
     fun minimalScalarProduct() {
+        // Оставлено до лучших времен
+        assertTrue(true)
     }
 
     @Test
     fun backpack() {
-    }*/
+        // Оставлено до лучших времен
+        assertTrue(true)
+    }
 
     @Test
     fun findPairOfIntegersWhichSumEqualsToXIfSumContains() {
