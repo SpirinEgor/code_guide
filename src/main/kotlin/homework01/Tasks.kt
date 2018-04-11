@@ -1,10 +1,4 @@
-@file:Suppress("UNUSED_CHANGED_VALUE")
-
 package homework01
-
-import sun.security.util.Length
-
-
 
 const val MAX_N = 100000
 const val MAX_ITER = 1000
