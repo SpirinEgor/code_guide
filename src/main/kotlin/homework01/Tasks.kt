@@ -1,11 +1,11 @@
 package homework01
 
-const val MAX_N = 100000
+const val MAX_N = 1_000_000
 const val MAX_ITER = 1000
 
 fun binarySearch(array: List<Int>, f: Int): Int {
     var left = 0
-    var right = array.size
+    var right = array.size - 1
     var mid = 0
 
     while (left < right) {
@@ -66,12 +66,12 @@ fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int{
     val cMap = HashMap<Int, Int>()
 
     for (cElement in c) {
-        cMap[cElement] = 1
+        cMap[cElement] = (cMap[cElement] ?: 0) + 1
     }
 
     for (aElement in a) {
         for (bElement in b) {
-            if (cMap.contains(x - aElement - bElement) ) count++
+            count += cMap[x - aElement - bElement] ?: 0
         }
     }
 
@@ -82,7 +82,7 @@ fun findUnique(array: List<Int>): Int = array.fold(0, { a: Int, b: Int -> a xor 
 
 fun ternarySearch(array: List<Int>): Int{
     var left = 0
-    var right = array.size
+    var right = array.size - 1
     var m1 = 0
     var m2 = 0
 
