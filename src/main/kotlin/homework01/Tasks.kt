@@ -26,13 +26,13 @@ fun binarySearch(array: List<Int>, f: Int): Int {
 
 
 fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
+    assert(l <= r)
     var count = 0
-
+    var myArr = array.sorted()
     for (i in l..r) {
-        var MyArr = array
-        while (binarySearch(MyArr, i) != -1) {
+        while (binarySearch(myArr, i) != -1) {
             count++
-            MyArr = MyArr.minusElement(i)
+            myArr = myArr.minusElement(i)
         }
     }
 
@@ -40,7 +40,7 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
 }
 
 fun getSumOfPrime(k: Int): Long {
-
+    if (k < 0) return 0
     val used = BooleanArray(MAX_N)
     var sum = 0L
     var primesAmount = 0
