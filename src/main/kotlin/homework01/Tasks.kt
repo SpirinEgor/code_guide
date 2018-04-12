@@ -1,5 +1,3 @@
-package homework01
-
 const val MAX_N = 1_000_000
 const val MAX_ITER = 1000
 
@@ -31,7 +29,6 @@ fun binarySearchInDecreasingArr(array: List<Int>, f: Int): Int{
         return -1
     }
 }
-
 
 fun binarySearch(array: List<Int>, f: Int): Int {
     when (array[0].compareTo(array[array.size-1])){
@@ -100,7 +97,6 @@ fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int{
 fun findUnique(array: List<Int>): Int = array.fold(0, { a: Int, b: Int -> a xor b })
 
 fun ternarySearch(array: List<Int>): Int{
-    assert(array.size > 0)
     var left = 0
     var right = array.size - 1
     var m1 = 0
