@@ -3,7 +3,7 @@ package homework01
 const val MAX_N = 1_000_000
 const val MAX_ITER = 1000
 
-fun binarySearch(array: List<Int>, f: Int): Int {
+fun binarySearchInIncreasingArr(array: List<Int>, f: Int): Int {
     assert(array.size > 0)
     var left = 0
     var right = array.size - 1
@@ -20,7 +20,20 @@ fun binarySearch(array: List<Int>, f: Int): Int {
         else
             left = mid + 1
     }
+    return -1
+}
 
+fun binarySearchInDecreasingArr(array: List<Int>, f: Int): Int {
+    return array.size - binarySearchInIncreasingArr(array,f)
+}
+
+
+fun binarySearch(array: List<Int>, f: Int): Int {
+    when (array[0].compareTo(array[array.size-1])){
+        0 -> return 0
+        1 -> return binarySearchInIncreasingArr(array, f)
+        -1 -> return binarySearchInDecreasingArr(array, f)
+    }
     return -1
 }
 
