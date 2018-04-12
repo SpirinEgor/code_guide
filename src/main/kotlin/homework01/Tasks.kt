@@ -23,16 +23,21 @@ fun binarySearchInIncreasingArr(array: List<Int>, f: Int): Int {
     return -1
 }
 
-fun binarySearchInDecreasingArr(array: List<Int>, f: Int): Int {
-    return array.size - binarySearchInIncreasingArr(array,f)
+fun binarySearchInDecreasingArr(array: List<Int>, f: Int): Int{
+    if (binarySearchInIncreasingArr(array.sorted(),f) > 0) {
+        return array.size - binarySearchInIncreasingArr(array.sorted(), f) - 1
+    }
+    else {
+        return -1
+    }
 }
 
 
 fun binarySearch(array: List<Int>, f: Int): Int {
     when (array[0].compareTo(array[array.size-1])){
         0 -> return 0
-        1 -> return binarySearchInIncreasingArr(array, f)
-        -1 -> return binarySearchInDecreasingArr(array, f)
+        -1 -> return binarySearchInIncreasingArr(array, f)
+        1 -> return binarySearchInDecreasingArr(array, f)
     }
     return -1
 }
