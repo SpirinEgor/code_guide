@@ -3,54 +3,42 @@ package homework01
 const val MAX_N = 1_000_000
 const val MAX_ITER = 1000
 
-fun binarySearchInIncreasingArr(array: List<Int>, f: Int): Int {
+fun binarySearch(array: List<Int>, f: Int): Int {
     assert(array.size > 0)
+    var isIncreasing = true
+    var sortedArr = array.sorted()
     var left = 0
-    var right = array.size - 1
+    var right = sortedArr.size - 1
     var mid = 0
+
+    if ( array[array.size-1].compareTo(array[0]) == -1){
+        isIncreasing = false
+    }
 
     while (left < right) {
         mid = left + (right - left) / 2
 
-        if (array[mid] == f)
-            return mid
+        if (sortedArr[mid] == f) {
+            return if(isIncreasing) mid else array.size - mid - 1
+        }
 
-        if (array[mid] > f)
+        if (sortedArr[mid] > f)
             right = mid
         else
             left = mid + 1
     }
+
     return -1
 }
-
-fun binarySearchInDecreasingArr(array: List<Int>, f: Int): Int{
-    if (binarySearchInIncreasingArr(array.sorted(),f) > 0) {
-        return array.size - binarySearchInIncreasingArr(array.sorted(), f) - 1
-    }
-    else {
-        return -1
-    }
-}
-
-fun binarySearch(array: List<Int>, f: Int): Int {
-    when (array[0].compareTo(array[array.size-1])){
-        0 -> return 0
-        -1 -> return binarySearchInIncreasingArr(array, f)
-        1 -> return binarySearchInDecreasingArr(array, f)
-    }
-    return -1
-}
-
-
 
 fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
     assert(l <= r)
     var count = 0
-    var myArr = array.sorted()
+    var sortedArr = array.sorted()
     for (i in l..r) {
-        while (binarySearch(myArr, i) != -1) {
-            count++
-            myArr = myArr.minusElement(i)
+        if (binarySearch(sortedArr, i) != -1) {
+            count += sortedArr.filter {a -> a == i  }.size
+            sortedArr = sortedArr.filter { a -> a!= i}
         }
     }
 
@@ -76,7 +64,7 @@ fun getSumOfPrime(k: Int): Long {
         }
     }
 
-    throw Exception()
+    throw Exception("The required number of primes was not found")
 }
 
 fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int{
