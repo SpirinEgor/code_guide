@@ -4,6 +4,7 @@ const val MAX_N = 1_000_000
 const val MAX_ITER = 1000
 
 fun binarySearch(array: List<Int>, f: Int): Int {
+    assert(array.size > 0)
     var left = 0
     var right = array.size - 1
     var mid = 0
@@ -40,7 +41,7 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
 }
 
 fun getSumOfPrime(k: Int): Long {
-    if (k < 0) return 0
+    if (k <= 0) return 0
     val used = BooleanArray(MAX_N)
     var sum = 0L
     var primesAmount = 0
@@ -81,6 +82,7 @@ fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int{
 fun findUnique(array: List<Int>): Int = array.fold(0, { a: Int, b: Int -> a xor b })
 
 fun ternarySearch(array: List<Int>): Int{
+    assert(array.size > 0)
     var left = 0
     var right = array.size - 1
     var m1 = 0
