@@ -20,7 +20,7 @@ fun main(args: Array<String>) {
 
             ::differentSubstrings.javaMethod?.kotlinFunction,
             ::manacker.javaMethod?.kotlinFunction,
-            ::autocompletion.javaMethod?.kotlinFunction
+            ::autocomplete.javaMethod?.kotlinFunction
     )
     val funcName = readLine()
     if (funcName == null || !functions.any{ it?.name == funcName}) {

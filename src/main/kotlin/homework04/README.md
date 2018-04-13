@@ -9,7 +9,7 @@
 палиндромов нечётное и чётной длины с центром в `i` позиции строки `s`
 (условимся, что центр палиндромов чётной длины: `(r + l) / 2` с округлением
 вверх);
-3. `autocompletion(words)`: условия прочитать можно 
+3. `autocomplete(words)`: условия прочитать можно 
 [здесь](https://docs.google.com/document/d/19Z-pBlQ1uJozTzICa8AtcI9qV237HVKqeVlc7wWZ_PY/edit?usp=sharing)
 
 Для тестирования локально:

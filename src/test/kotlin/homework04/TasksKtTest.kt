@@ -14,7 +14,7 @@ class TasksKtTest {
     }
 
     @Test
-    fun autocompletion() {
+    fun autocomplete() {
     }
 
 }
