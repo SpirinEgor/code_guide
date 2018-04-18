@@ -1,9 +1,6 @@
 import homework01.*
-import homework02.*
 import homework03.*
 import homework04.*
-import java.lang.Exception
-
 import kotlin.reflect.KParameter
 import kotlin.reflect.jvm.javaMethod
 import kotlin.reflect.jvm.kotlinFunction
@@ -16,13 +13,6 @@ fun main(args: Array<String>) {
             ::countTriples.javaMethod?.kotlinFunction,
             ::findUnique.javaMethod?.kotlinFunction,
             ::ternarySearch.javaMethod?.kotlinFunction,
-        
-            ::howManyNumbersTest.javaMethod?.kotlinFunction,
-            ::binarySearchTest.javaMethod?.kotlinFunction,
-            ::getSumOfPrimeTest.javaMethod?.kotlinFunction,
-            ::countTriplesTest.javaMethod?.kotlinFunction,
-            ::findUniqueTest.javaMethod?.kotlinFunction,
-            ::ternarySearchTest.javaMethod?.kotlinFunction,
 
             ::minimalDiffDivide.javaMethod?.kotlinFunction,
             ::minimalScalarProduct.javaMethod?.kotlinFunction,
@@ -33,7 +23,7 @@ fun main(args: Array<String>) {
             ::autocomplete.javaMethod?.kotlinFunction
     )
     val funcName = readLine()
-    if (funcName == null || !functions.any { it?.name == funcName }) {
+    if (funcName == null || !functions.any{ it?.name == funcName}) {
         println("No such function")
         return
     }
@@ -82,7 +72,7 @@ fun getInt(): Int? {
 
 fun getListOfInt(): List<Int>? {
     return try {
-        readLine()!!.split(' ').map { it.toInt() }
+        readLine()!!.split(' ').map{it.toInt()}
     } catch (e: Exception) {
         println(e.message)
         null
