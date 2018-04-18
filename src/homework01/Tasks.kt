@@ -52,6 +52,7 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
     }
 }
 
+
 fun getSumOfPrime(k: Int): Long {
     val array = Array(10001, { i -> 0 })
     for (i in 2..array.size - 1 step 1) {
