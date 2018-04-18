@@ -10,7 +10,7 @@ fun binarySearchTest() {
     for (i in 1..20) {
         val k: Int = Math.abs(Random().nextInt() % n)
         if (binarySearch(array.toList(), array[k]) != k) {
-            println("Fuck")
+            println("Wrong")
         }
     }
 }
@@ -26,8 +26,7 @@ fun howManyNumbersTest() {
             left = right.also { right = left }
         }
         if (howManyNumbers(array.toList(), array[left], array[right]) != (right - left + 1)) {
-            println("Fuck")
-            println("$right $left ${howManyNumbers(array.toList(), left, right)}")
+            println("Wrong")
         }
     }
 }
@@ -37,7 +36,7 @@ fun getSumOfPrimeTest() {
     for (i in 1..k) {
         val n: Int = Math.abs(Random().nextInt() % 100)
         if (getSumOfPrime(n) != getSumOfPrimeForTest(n)) {
-            println("Fucccck");
+            println("Wrong")
         }
     }
 
@@ -77,7 +76,7 @@ fun countTriplesTest() {
         var n2: Int = Math.abs(Random().nextInt() % b.size)
         var n3: Int = Math.abs(Random().nextInt() % c.size)
         if (countTriples(a.toList(), b.toList(), c.toList(), a[n1] + b[n2] + c[n3]) != countTriplesForTest(a.toList(), b.toList(), c.toList(), a[n1] + b[n2] + c[n3])) {
-            println("Fuck")
+            println("Wrong")
         }
     }
 }
@@ -102,7 +101,7 @@ fun findUniqueTest() {
     var a = Array(n, { i -> Random().nextInt() % 100000 })
     var array = Array(2 * n + 1, { i -> a[i % n] })
     if (findUnique(array.toList()) != array[0]) {
-        println("Fuck")
+        println("Wrong")
     }
 }
 
@@ -113,10 +112,10 @@ fun ternarySearchTest() {
     b.sort()
     var array = Array(a.size + b.size, { i -> a[i % a.size] });
     for (i in a.size..array.size - 1) {
-        array[i] = b[(b.size - 1) - (i-a.size)];
+        array[i] = b[(b.size - 1) - (i - a.size)];
     }
     if (ternarySearchForTest(array.toList()) != ternarySearch(array.toList())) {
-
+        println("Wrong")
     }
 
 }
