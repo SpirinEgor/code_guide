@@ -9,13 +9,20 @@ import kotlin.reflect.jvm.javaMethod
 import kotlin.reflect.jvm.kotlinFunction
 
 fun main(args: Array<String>) {
-    /*val functions = listOf(
+    val functions = listOf(
             ::howManyNumbers.javaMethod?.kotlinFunction,
             ::binarySearch.javaMethod?.kotlinFunction,
             ::getSumOfPrime.javaMethod?.kotlinFunction,
             ::countTriples.javaMethod?.kotlinFunction,
             ::findUnique.javaMethod?.kotlinFunction,
             ::ternarySearch.javaMethod?.kotlinFunction,
+        
+            ::howManyNumbersTest.javaMethod?.kotlinFunction,
+            ::binarySearchTest.javaMethod?.kotlinFunction,
+            ::getSumOfPrimeTest.javaMethod?.kotlinFunction,
+            ::countTriplesTest.javaMethod?.kotlinFunction,
+            ::findUniqueTest.javaMethod?.kotlinFunction,
+            ::ternarySearchTest.javaMethod?.kotlinFunction,
 
             ::minimalDiffDivide.javaMethod?.kotlinFunction,
             ::minimalScalarProduct.javaMethod?.kotlinFunction,
@@ -62,8 +69,6 @@ fun main(args: Array<String>) {
         }
     }
     println(currentFunction?.callBy(params))
-    */
-    ternarySearchTest();
 }
 
 fun getInt(): Int? {
