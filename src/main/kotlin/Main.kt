@@ -1,5 +1,6 @@
 import homework01.*
 import homework03.*
+import homework04.*
 import kotlin.reflect.KParameter
 import kotlin.reflect.jvm.javaMethod
 import kotlin.reflect.jvm.kotlinFunction
@@ -15,7 +16,11 @@ fun main(args: Array<String>) {
 
             ::minimalDiffDivide.javaMethod?.kotlinFunction,
             ::minimalScalarProduct.javaMethod?.kotlinFunction,
-            ::backpack.javaMethod?.kotlinFunction
+            ::backpack.javaMethod?.kotlinFunction,
+
+            ::differentSubstrings.javaMethod?.kotlinFunction,
+            ::manacker.javaMethod?.kotlinFunction,
+            ::autocomplete.javaMethod?.kotlinFunction
     )
     val funcName = readLine()
     if (funcName == null || !functions.any{ it?.name == funcName}) {
@@ -39,6 +44,14 @@ fun main(args: Array<String>) {
                 val int = getInt() ?: return
                 params = params.plus(Pair(it, int))
             }
+            it.type.toString() == "kotlin.String" -> {
+                val string = getString() ?: return
+                params = params.plus(Pair(it, string))
+            }
+            it.type.toString() == "kotlin.collections.List<kotlin.String>" -> {
+                val list = getListOfString() ?: return
+                params = params.plus(Pair(it, list))
+            }
             else -> {
                 println("I can't do anything with ${it.name}")
                 return
@@ -60,6 +73,24 @@ fun getInt(): Int? {
 fun getListOfInt(): List<Int>? {
     return try {
         readLine()!!.split(' ').map{it.toInt()}
+    } catch (e: Exception) {
+        println(e.message)
+        null
+    }
+}
+
+fun getString(): String? {
+    return try {
+        readLine()!!
+    } catch (e: Exception) {
+        println(e.message)
+        null
+    }
+}
+
+fun getListOfString(): List<String>? {
+    return try {
+        readLine()!!.split(' ')
     } catch (e: Exception) {
         println(e.message)
         null

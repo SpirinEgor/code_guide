@@ -4,4 +4,12 @@ jdk:
 
 before_script:
 - wget http://acm.math.spbu.ru/voudy/code_guide/Hw01Tests.kt
+<<<<<<< HEAD
 - mv Hw01Tests.kt src/test/kotlin/homework01/
+=======
+- mv Hw01Tests.kt src/test/kotlin/homework01/
+- wget http://acm.math.spbu.ru/voudy/code_guide/Hw03Tests.kt
+- mv Hw03Tests.kt src/test/kotlin/homework03/
+- wget http://acm.math.spbu.ru/voudy/code_guide/Hw04Tests.kt
+- mv Hw04Tests.kt src/test/kotlin/homework04/
+>>>>>>> 24f11be885944524d43b4c6fbfd4efb35594258a
