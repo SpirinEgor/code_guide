@@ -1,6 +1,10 @@
 import homework01.*
-import homework03.*
-import homework04.*
+import homework03.backpack
+import homework03.minimalDiffDivide
+import homework03.minimalScalarProduct
+import homework04.autocomplete
+import homework04.differentSubstrings
+import homework04.manacker
 import kotlin.reflect.KParameter
 import kotlin.reflect.jvm.javaMethod
 import kotlin.reflect.jvm.kotlinFunction
