@@ -1,6 +1,7 @@
 import homework01.*
 import homework03.*
 import homework04.*
+import homework05.*
 import kotlin.reflect.KParameter
 import kotlin.reflect.jvm.javaMethod
 import kotlin.reflect.jvm.kotlinFunction
@@ -20,7 +21,12 @@ fun main(args: Array<String>) {
 
             ::differentSubstrings.javaMethod?.kotlinFunction,
             ::manacker.javaMethod?.kotlinFunction,
-            ::autocomplete.javaMethod?.kotlinFunction
+            ::autocomplete.javaMethod?.kotlinFunction,
+
+            ::restoreAlphabet.javaMethod?.kotlinFunction,
+            ::evenTrees.javaMethod?.kotlinFunction,
+            ::dijkstra.javaMethod?.kotlinFunction,
+            ::floydWarshall.javaMethod?.kotlinFunction
     )
     val funcName = readLine()
     if (funcName == null || !functions.any{ it?.name == funcName}) {
@@ -52,6 +58,17 @@ fun main(args: Array<String>) {
                 val list = getListOfString() ?: return
                 params = params.plus(Pair(it, list))
             }
+            it.type.toString() == "kotlin.collections.List" +
+                    "<kotlin.Triple<kotlin.Int, kotlin.Int, kotlin.Int>>" -> {
+                val list = getListOfTriples() ?: return
+                params = params.plus(Pair(it, list))
+            }
+            it.type.toString() == "kotlin.collections.List" +
+                    "<kotlin.Pair<kotlin.Int, kotlin.Int>>" -> {
+                println("Beginning to parse")
+                val list = getListOfPairs() ?: return
+                params = params.plus(Pair(it, list))
+            }
             else -> {
                 println("I can't do anything with ${it.name}")
                 return
@@ -64,6 +81,30 @@ fun main(args: Array<String>) {
 fun getInt(): Int? {
     return try {
         readLine()!!.toInt()
+    } catch (e: Exception) {
+        println(e.message)
+        null
+    }
+}
+
+fun getListOfPairs(): List<Pair<Int, Int>>? {
+    return try {
+        readLine()!!.split(';')
+                    .map{it.split(' ').filter {it.isNotEmpty()}}
+                    .filter {it.isNotEmpty()}
+                    .map {Pair(it[0].toInt(), it[1].toInt())}
+    } catch (e: Exception) {
+        println(e.message)
+        null
+    }
+}
+
+fun getListOfTriples(): List<Triple<Int, Int, Int>>? {
+    return try {
+        readLine()!!.split(';')
+                    .map{it.split(' ').filter {it.isNotEmpty()}}
+                    .filter {it.isNotEmpty()}
+                    .map {Triple(it[0].toInt(), it[1].toInt(), it[2].toInt())}
     } catch (e: Exception) {
         println(e.message)
         null
