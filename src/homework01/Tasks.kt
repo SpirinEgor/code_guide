@@ -10,9 +10,11 @@ fun binarySearch(array: List<Int>, f: Int): Int {
     while (fromIndex < toIndex){
     index = ((toIndex + fromIndex) / 2).toInt()
 
-    if (array[index] == f) return index
+    if (array[index] == f)
+        return index
     else
-        if (array[index] < f) fromIndex = index - 1
+        if (array[index] < f)
+            fromIndex = index - 1
         else toIndex = index + 1
     }
 
@@ -24,8 +26,10 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int{
     var fromIndex = 0
     var toIndex = array.size
 
-    if(l >= sortedArray[0]) fromIndex = binarySearch(sortedArray, l)
-    if(r <= sortedArray.last()) toIndex = binarySearch(sortedArray, r)
+    if(l >= sortedArray[0])
+        fromIndex = binarySearch(sortedArray, l)
+    if(r + 1 <= sortedArray.last())
+        toIndex = binarySearch(sortedArray, r + 1)
 
     return toIndex - fromIndex
 }
@@ -41,11 +45,9 @@ fun getSumOfPrime(k: Int): Long{
             if(arrayOfInclusion[item]){
                 sum += item
                 counterOfPrimes++
-                var i = item * item
 
-                while(i < MAX){
+                for(i in item * item until MAX step item){
                     arrayOfInclusion.add(i, false)
-                    i += item
                 }
             }
         }
@@ -68,20 +70,10 @@ fun ternarySearch(array: List<Int>): Int{
         index1 = (fromIndex + (toIndex - fromIndex) / 3).toInt()
         index2 = (fromIndex + 2 * (toIndex - fromIndex) / 3).toInt()
 
-        if (array[index1] < array[index2]) fromIndex = index1
+        if (array[index1] < array[index2])
+            fromIndex = index1
         else toIndex = index2
     }
 
-    if (array[index1] >= array[index2]) {
-        if (array[index1] > array[(index1 + index2) / 2])
-            return index1
-        else
-            return (index1 + index2) / 2
-    }
-    else{
-        if (array[index2] > array[(index1 + index2) / 2])
-            return index2
-        else
-            return (index1 + index2) / 2
-    }
+    return maxOf(array[index1], array[index2], array[(index1 + index2) / 2])
 }
