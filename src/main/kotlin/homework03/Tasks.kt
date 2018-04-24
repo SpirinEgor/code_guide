@@ -38,7 +38,16 @@ fun minimalDiffDivide(array: List<Int>): Int {
     }
 }
 
-fun minimalScalarProduct(x: List<Int>, y: List<Int>) = 0
+fun minimalScalarProduct(x: List<Int>, y: List<Int>): Int {
+    var scalarProduct = 0
+    val sortedX = x.sortedBy { it }
+    val sortedY = y.sortedByDescending { it }
+
+    for (i in 0 until sortedX.size) {
+        scalarProduct += sortedX[i] * sortedY[i]
+    }
+    return scalarProduct
+}
 
 fun backpack(weight: List<Int>, cost: List<Int>, maxWeight: Int): Int {
     val a = Array(weight.size + 1, { IntArray(cost.size + 1) })
