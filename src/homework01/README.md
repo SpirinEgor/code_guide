@@ -40,11 +40,11 @@ howManyNumbers
 ```
 
 
-После того, как вы сделали задание, добавьте новую реализацию на Git, для этого
+После того, как вы сделали задание, добавьте новую реализацию на Git, длgit commit -m "my solution of homework"я этого
 воспользуйтесь командами `git add`, `git commit` и `git push`. Например:
 ```$xslt
 git add .
-git commit -m "my solution of homework"
+
 git push
 ```
 Для того, чтобы сдать задание вам необходимо создать pull request в этот репозиторий,
