@@ -1,6 +1,6 @@
 package homework01
 
-const val MAX = 1000000
+const val MAX = 1_000_000
 
 fun binarySearch(array: List<Int>, f: Int): Int {
     var fromIndex = 0
@@ -41,7 +41,7 @@ fun getSumOfPrime(k: Int): Long{
     var counterOfPrimes = 0
 
     while(counterOfPrimes < k){
-        for(item in 2 until 100000){
+        for(item in 2 until MAX){
             if(arrayOfInclusion[item]){
                 sum += item
                 counterOfPrimes++
