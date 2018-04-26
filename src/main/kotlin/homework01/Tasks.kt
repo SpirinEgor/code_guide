@@ -1,98 +1,79 @@
 package homework01
 
-const val MAX_N = 1_000_000
-const val MAX_ITER = 1000
+const val MAX = 1_000_000
 
-/*
-return first element, which >= f
-in case all elements smaller, than f
-return array.size
-(it's works like lower_bound)
- */
 fun binarySearch(array: List<Int>, f: Int): Int {
-    if (array.last() < f) {
-        return array.size
+    var fromIndex = 0
+    var toIndex = array.size
+    var index = 0
+
+    while (fromIndex < toIndex){
+    index = ((toIndex + fromIndex) / 2).toInt()
+
+    if (array[index] == f)
+        return index
+    else
+        if (array[index] < f)
+            fromIndex = index - 1
+        else toIndex = index + 1
     }
-    var l = 0
-    var r = array.size - 1
-    while (l != r) {
-        val m = l + (r - l).shr(1)
-        when {
-            array[m] == f -> return m
-            array[m] < f -> l = m + 1
-            else -> r = m
-        }
-    }
-    return l
+
+    return index
 }
 
-fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
+fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int{
     val sortedArray = array.sorted()
-    val lBorder = if (l >= sortedArray[0]) binarySearch(sortedArray, l) else 0
-    val rBorder = if (r + 1 <= sortedArray.last())
-                            binarySearch(sortedArray, r + 1) else sortedArray.size
-    return rBorder - lBorder
+    var fromIndex = 0
+    var toIndex = array.size
+
+    if(l >= sortedArray[0])
+        fromIndex = binarySearch(sortedArray, l)
+    if(r + 1 <= sortedArray.last())
+        toIndex = binarySearch(sortedArray, r + 1)
+
+    return toIndex - fromIndex
 }
 
-fun getSumOfPrime(k: Int): Long {
-    val prime: MutableList<Int> = mutableListOf()
-    val used: Array<Boolean> = Array(MAX_N + 1, {false})
-    for (i in (2..MAX_N)) {
-        if (prime.size == k) {
-            return prime.fold(0.toLong(), {x, y -> x + y})
-        }
-        if (!used[i]) {
-            prime.add(i)
-            if (i.toLong() * i < MAX_N) {
-                for (j in (i * i)..MAX_N step i) {
-                    used[j] = true
+fun getSumOfPrime(k: Int): Long{
+    val arrayOfInclusion = arrayListOf<Boolean>()
+    arrayOfInclusion.add(2, true)
+    var sum = 0L
+    var counterOfPrimes = 0
+
+    while(counterOfPrimes < k){
+        for(item in 2 until MAX){
+            if(arrayOfInclusion[item]){
+                sum += item
+                counterOfPrimes++
+
+                for(i in item * item until MAX step item){
+                    arrayOfInclusion.add(i, false)
                 }
             }
         }
     }
-    return -1
+
+    return sum
 }
 
-fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int {
-    val hashTable = HashMap<Int, Int>()
-    for (elemC in c) {
-        hashTable[elemC] = (hashTable[elemC] ?: 0) + 1
-    }
-    var result = 0
-    for (elemA in a) {
-        for (elemB in b) {
-            result += hashTable[x - elemA - elemB] ?: 0
-        }
-    }
-    return result
-}
+fun countTriples(a: List<Int>, b: List<Int>, c: List<Int>, x: Int): Int = 0
 
-fun findUnique(array: List<Int>): Int = array.fold(0, {x, y -> x xor y})
+fun findUnique(array: List<Int>): Int = array.fold(0, {x, y -> x xor  y})
 
-fun ternarySearch(array: List<Int>): Int {
-    var l = 0
-    var r = array.size - 1
-    for (i in 1..MAX_ITER) {
-        val m1 = l + (r - l) / 3
-        val m2 = l + 2 * (r - l) / 3
-        when (array[m1].compareTo(array[m2])) {
-            0 -> {
-                l = m1
-                r = m2
-            }
-            -1 -> {
-                l = m1
-            }
-            else -> {
-                r = m2
-            }
-        }
+fun ternarySearch(array: List<Int>): Int{
+    var fromIndex = 0
+    var toIndex = array.size
+    var index1 = 0
+    var index2 = 0
+
+    while (toIndex - fromIndex > 0){
+        index1 = (fromIndex + (toIndex - fromIndex) / 3).toInt()
+        index2 = (fromIndex + 2 * (toIndex - fromIndex) / 3).toInt()
+
+        if (array[index1] < array[index2])
+            fromIndex = index1
+        else toIndex = index2
     }
-    var maxVal = array[l]
-    for (i in l + 1..r) {
-        if (array[i] > maxVal) {
-            maxVal = array[i]
-        }
-    }
-    return maxVal
+
+    return maxOf(array[index1], array[index2], array[(index1 + index2) / 2])
 }
