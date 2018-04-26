@@ -1,5 +1,7 @@
 package homework01
 
+import kotlin.math.max
+
 const val MAX_N = 1_000_000
 const val MAX_ITER = 1000
 
@@ -31,7 +33,7 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int {
     val lBorder = if (l >= sortedArray[0]) binarySearch(sortedArray, l) else 0
     val rBorder = if (r + 1 <= sortedArray.last())
                             binarySearch(sortedArray, r + 1) else sortedArray.size
-    return rBorder - lBorder
+    return max(rBorder - lBorder, 0)
 }
 
 fun getSumOfPrime(k: Int): Long {
