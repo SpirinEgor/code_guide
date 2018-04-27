@@ -27,15 +27,7 @@ fun minimalDiffDivide(array: List<Int>): Int {
     if (sumInList2 == 0)
         return sumInList1
 
-    val diff1 = sumInList1 - sumInList2
-    val diff2 = sumInList2 - sumInList1
-
-
-    return if (diff1 <= diff2) {
-        diff1
-    } else {
-        diff2
-    }
+    return Math.abs(sumInList1 - sumInList2)
 }
 
 fun minimalScalarProduct(x: List<Int>, y: List<Int>): Int {
