@@ -1,24 +1,30 @@
 package homework01
 
+import java.util.Collections.max
+
 const val MAX = 1_000_000
 
 fun binarySearch(array: List<Int>, f: Int): Int {
+    if (array.last() < f) {
+        return array.size
+    }
     var fromIndex = 0
-    var toIndex = array.size
+    var toIndex = array.size - 1
     var index = 0
 
     while (fromIndex < toIndex){
-    index = ((toIndex + fromIndex) / 2).toInt()
+        index = (toIndex + fromIndex) / 2
 
-    if (array[index] == f)
-        return index
-    else
-        if (array[index] < f)
-            fromIndex = index - 1
-        else toIndex = index + 1
+        if (array[index] == f)
+            return index
+        else
+            if (array[index] < f)
+                fromIndex = index + 1
+            else
+                toIndex = index
     }
 
-    return index
+    return toIndex
 }
 
 fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int{
@@ -31,26 +37,28 @@ fun howManyNumbers(array: List<Int>, l: Int, r: Int): Int{
     if(r + 1 <= sortedArray.last())
         toIndex = binarySearch(sortedArray, r + 1)
 
-    return toIndex - fromIndex
+    return maxOf(toIndex - fromIndex, 0)
 }
 
 fun getSumOfPrime(k: Int): Long{
-    val arrayOfInclusion = arrayListOf<Boolean>()
-    arrayOfInclusion.add(2, true)
+    val arrayOfInclusion: Array<Boolean> = Array(MAX + 1, {false})
     var sum = 0L
     var counterOfPrimes = 0
 
-    while(counterOfPrimes < k){
-        for(item in 2 until MAX){
-            if(arrayOfInclusion[item]){
-                sum += item
-                counterOfPrimes++
+    for(item in 2 until MAX){
+        if(counterOfPrimes == k)
+            return sum
 
-                for(i in item * item until MAX step item){
-                    arrayOfInclusion.add(i, false)
-                }
+        if(!arrayOfInclusion[item]){
+            arrayOfInclusion[item] = true;
+            sum += item
+            counterOfPrimes++
+
+            for (i in item * item until MAX step item) {
+                arrayOfInclusion[i] = true
             }
         }
+
     }
 
     return sum
@@ -66,9 +74,9 @@ fun ternarySearch(array: List<Int>): Int{
     var index1 = 0
     var index2 = 0
 
-    while (toIndex - fromIndex > 0){
-        index1 = (fromIndex + (toIndex - fromIndex) / 3).toInt()
-        index2 = (fromIndex + 2 * (toIndex - fromIndex) / 3).toInt()
+    for(i in 1..1000){
+        index1 = (fromIndex + (toIndex - fromIndex) / 3)
+        index2 = (fromIndex + 2 * (toIndex - fromIndex) / 3)
 
         if (array[index1] < array[index2])
             fromIndex = index1
