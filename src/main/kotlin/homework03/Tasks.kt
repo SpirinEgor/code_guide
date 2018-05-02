@@ -47,7 +47,7 @@ fun backpack(weight: List<Int>, cost: List<Int>, maxWeight: Int): Int {
     for (k in 1..weight.size) {
         for (w in 1..maxWeight) {
             if (weight[k - 1] >= w) {
-                a[k][w] = Math.max(a[k - 1][w], a[k - 1][w - weight[k - 1] + cost[k - 1]])
+                a[k][w] = Math.max(a[k - 1][w], a[k - 1][w - weight[k - 1]] + cost[k - 1])
             } else {
                 a[k][w] = a[k - 1][w]
             }
