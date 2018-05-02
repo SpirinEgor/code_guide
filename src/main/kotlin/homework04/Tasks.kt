@@ -26,7 +26,59 @@ class Trie(val root: Node) {
 
 fun differentSubstrings(s: String): Int = 0
 
-fun manacker(s: String): Pair<List<Int>, List<Int>> = Pair(listOf(), listOf())
+fun manacker(s: String): Pair<List<Int>, List<Int>> = Pair(oddPalindromes(s), evenPalindromes(s))
+
+fun oddPalindromes(s: String): List<Int> {
+    val list = MutableList(s.length, { 0 })
+    var l = 0
+    var r = -1
+
+    for (i in 0 until s.length) {
+        var k = if (i > r) {
+            1
+        } else {
+            Math.min(r - i + 1, list[l + r - i])
+        }
+
+        while (i + k < s.length && i - k >= 0 && s[i + k] == s[i - k]) {
+            ++k
+        }
+        list[i] = k
+
+        if (i + k - 1 > r) {
+            r = i + k - 1
+            l = i - k + 1
+        }
+    }
+
+    return list.toList()
+}
+
+fun evenPalindromes(s: String): List<Int> {
+    val list = MutableList(s.length, { 0 })
+    var l = 0
+    var r = -1
+
+    for (i in 0 until s.length - 1) {
+        var k = if (i > r) {
+            0
+        } else {
+            Math.min(r - i, list[l + r - i - 1])
+        }
+
+        while (i + k + 1 < s.length && i - k >= 0 && s[i + k + 1] == s[i - k]) {
+            ++k
+        }
+        list[i] = k
+
+        if (i + k - 1 > r) {
+            r = i + k
+            l = i - k + 1
+        }
+    }
+
+    return list.toList()
+}
 
 /**
  * Returns
