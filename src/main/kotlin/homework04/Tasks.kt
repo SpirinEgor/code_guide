@@ -5,7 +5,7 @@ class Node {
     val move = HashMap<Char, Node>()
 }
 
-class Trie(val root: Node) {
+class Trie(private val root: Node) {
     fun addWord(word: String) {
         word.fold(root, { curNode, c ->
             if (!curNode.move.containsKey(c)) {
@@ -22,6 +22,8 @@ class Trie(val root: Node) {
                 }
                 curNode.move[c]!!
             })
+
+    fun getRoot(): Node = root
 }
 
 fun differentSubstrings(s: String): Int = 0
