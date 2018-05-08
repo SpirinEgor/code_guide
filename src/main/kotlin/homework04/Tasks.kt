@@ -77,14 +77,16 @@ fun allPalindromes(s: String): Pair<List<Int>, List<Int>> {
 
 fun Trie.autocomplete(word: String): Int {
     var maxPrefix = 0
+    var iter = 0
 
     word.fold(getRoot(), { curNode, c ->
+        iter++
         if (!curNode.move.containsKey(c)) {
             addWord(word)
             return word.length
         }
         if (curNode.move.size > 1) {
-            maxPrefix++
+            maxPrefix = iter
         }
         curNode.move[c]!!
     })
