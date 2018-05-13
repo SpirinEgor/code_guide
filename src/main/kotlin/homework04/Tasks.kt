@@ -34,7 +34,42 @@ class Trie(private val root: Node) {
     fun getRoot(): Node = root
 }
 
-fun differentSubstrings(s: String): Int = 0
+fun differentSubstrings(s: String): Int {
+    var diffSubstrings: Int = 0
+    val stringBuilder = StringBuilder()
+    for (c: Char in s) {
+        stringBuilder.append(c)
+        diffSubstrings += zFunctionMax(stringBuilder.toString().reversed())
+    }
+    return diffSubstrings
+}
+
+fun zFunctionMax(s: String): Int {
+    var maxValue: Int = 0
+
+    for (i in 1 until s.length) {
+        var prefixStart = 0
+        var curI = i
+
+        while (s[curI] == s[prefixStart]) {
+            prefixStart++
+            curI++
+
+            if (curI >= s.length || prefixStart >= s.length) {
+                break
+            }
+        }
+
+        if (prefixStart == 0) {
+            continue
+        }
+
+        if (prefixStart > maxValue) {
+            maxValue = prefixStart
+        }
+    }
+    return s.length - maxValue
+}
 
 fun manacker(s: String): Pair<List<Int>, List<Int>> = allPalindromes(s)
 
