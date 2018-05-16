@@ -47,7 +47,7 @@ class Wolf(speed: Int = Random().nextInt(20) + 20) : Animal(speed), Chasing<Deer
     }
 }
 
-class Cat(owner: Owner, name: String?, speed: Int = Random().nextInt(10) + 5) :
+open class Cat(owner: Owner?, name: String?, speed: Int = Random().nextInt(10) + 5) :
         Pet(owner, name, speed), Chasing<Mouse>, Chased<Dog> {
 
     override fun chaseBy(hunter: Dog) {
@@ -130,7 +130,7 @@ class Human(val name: String, speed: Int = Random().nextInt(4) + 3) : Owner, Ani
     }
 }
 
-class CheshireCat(owner: Owner? = null, name: String?, speed: Int = Random().nextInt(1) + 2) : Pet(owner, name, speed) {
+class CheshireCat(owner: Owner? = null, name: String?, speed: Int = Random().nextInt(1) + 2) : Cat(owner, name, speed) {
 
     override fun makeSomeNoise() {
         print("What sound a cheshire cat does????")
