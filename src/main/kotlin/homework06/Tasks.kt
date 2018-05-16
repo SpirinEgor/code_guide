@@ -9,11 +9,11 @@ abstract class Animal(private var speed: Int) {
     abstract fun makeSomeNoise()
 }
 
-interface Chased<T> {
+interface Chased<in T> {
     fun chaseBy(hunter: T)
 }
 
-interface Chasing<T> {
+interface Chasing<in T> {
     fun chase(victim: T)
 }
 
@@ -108,7 +108,7 @@ class Deer(speed: Int = Random().nextInt(25) + 10) : Animal(speed), Chased<Wolf>
 
 }
 
-class Human(val name: String, speed: Int = Random().nextInt(4) + 3) : Owner, Animal(speed) {
+class Human(private val name: String, speed: Int = Random().nextInt(4) + 3) : Owner, Animal(speed) {
 
     override fun makeSomeNoise() {
         println("Hello, my name is $name")
@@ -136,7 +136,9 @@ class CheshireCat(owner: Owner? = null, name: String?, speed: Int = Random().nex
         print("What sound a cheshire cat does????")
     }
 
-    var isVisible = false
+    private var isVisible = false
+
+    fun isCatVisible(): Boolean = isVisible
 
     fun grin() {
         println("Cheshire cat grins widely.")
@@ -152,7 +154,6 @@ class CheshireCat(owner: Owner? = null, name: String?, speed: Int = Random().nex
                 "It's grin is still hanging in the air. Now it's gone too.")
         isVisible = false
     }
-
 }
 
 fun main(args: Array<String>) {
@@ -160,11 +161,11 @@ fun main(args: Array<String>) {
     john.addPet(Cat(john, "Garfield"))
     john.addPet(Dog(john, "Odie"))
 
-    val chezhCat = CheshireCat(name = null)
+    val czechCat = CheshireCat(name = null)
 
-    chezhCat.appear()
-    chezhCat.grin()
-    chezhCat.disappear()
+    czechCat.appear()
+    czechCat.grin()
+    czechCat.disappear()
 
     john.getPets().forEach { john.playWith(it) }
 
