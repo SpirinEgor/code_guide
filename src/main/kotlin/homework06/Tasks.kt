@@ -6,6 +6,12 @@ abstract class Animal(private var speed: Int) {
 
     fun getSpeed(): Int = speed
 
+    fun <T : Animal, H : Animal> getCaughtMessage(hunter: T, victim: H): String =
+            "${hunter.javaClass.simpleName} (${hunter.speed}) caught up the victim: ${victim.javaClass.simpleName} (${victim.speed})"
+
+    fun <T : Animal, H : Animal> ranAwayMessage(hunter: T, victim: H): String =
+            "${victim.javaClass.simpleName} (${victim.speed}) has ran away from ${hunter.javaClass.simpleName} (${hunter.speed})"
+
     abstract fun makeSomeNoise()
 }
 
@@ -31,13 +37,10 @@ abstract class Pet(private val owner: Owner?, val name: String?, speed: Int) : A
 
 class Wolf(speed: Int = Random().nextInt(20) + 20) : Animal(speed), Chasing<Deer> {
     override fun chase(victim: Deer) {
-        val victimSpeed = victim.getSpeed()
-        val hunterSpeed = this.getSpeed()
-
-        if (hunterSpeed > victimSpeed) {
-            println("Wolf ($hunterSpeed) caught up the victim: Deer ($victimSpeed)")
+        if (this.getSpeed() > victim.getSpeed()) {
+            println(getCaughtMessage(this, victim))
         } else {
-            println("Deer ($victimSpeed) has ran away from Wolf ($hunterSpeed)")
+            println(ranAwayMessage(this, victim))
         }
 
     }
@@ -55,13 +58,10 @@ open class Cat(owner: Owner?, name: String?, speed: Int = Random().nextInt(10) +
     }
 
     override fun chase(victim: Mouse) {
-        val victimSpeed = victim.getSpeed()
-        val hunterSpeed = this.getSpeed()
-
-        if (hunterSpeed > victimSpeed) {
-            println("Cat ($hunterSpeed) caught up the victim: Mouse ($victimSpeed)")
+        if (this.getSpeed() > victim.getSpeed()) {
+            println(getCaughtMessage(this, victim))
         } else {
-            println("Mouse ($victimSpeed) has ran away from Cat ($hunterSpeed)")
+            println(ranAwayMessage(this, victim))
         }
     }
 
@@ -72,13 +72,10 @@ open class Cat(owner: Owner?, name: String?, speed: Int = Random().nextInt(10) +
 
 class Dog(owner: Owner, name: String?, speed: Int = Random().nextInt(20) + 15) : Pet(owner, name, speed), Chasing<Cat> {
     override fun chase(victim: Cat) {
-        val victimSpeed = victim.getSpeed()
-        val hunterSpeed = this.getSpeed()
-
-        if (hunterSpeed > victimSpeed) {
-            println("Dog ($hunterSpeed) caught up the victim: Cat ($victimSpeed)")
+        if (this.getSpeed() > victim.getSpeed()) {
+            println(getCaughtMessage(this, victim))
         } else {
-            println("Cat ($victimSpeed) has ran away from Dog ($hunterSpeed)")
+            println(ranAwayMessage(this, victim))
         }
     }
 
@@ -167,7 +164,7 @@ fun main(args: Array<String>) {
     czechCat.grin()
     czechCat.disappear()
 
-    john.getPets().forEach { john.playWith(it) }
+    john.petsOwned.forEach { john.playWith(it) }
 
     Wolf().chase(Deer())
     val catPet: Pet = john.getPets()[0]
